@@ -1350,6 +1350,7 @@
 				C7058FDB1AA1936F0098CF61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C7058FDC1AA1936F0098CF61 /* Build configuration list for PBXNativeTarget "PleebTests" */ = {
 			isa = XCConfigurationList;
@@ -1358,6 +1359,7 @@
 				C7058FDE1AA1936F0098CF61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
