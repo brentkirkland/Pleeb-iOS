@@ -18,56 +18,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+//
+//  AppDelegate
+//  Pleeb
+//
+//  Edited by Brent Kirkland on 2/28/15.
+//  Copyright (c) 2015 Brent Kirkland. All rights reserved.
+//
+
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow!
-    var drawerController: DrawerController!
     
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
-        
-        let leftSideDrawerViewController = ExampleLeftSideDrawerViewController()
-        let centerViewController = ExampleCenterTableViewController()
-        let rightSideDrawerViewController = ExampleRightSideDrawerViewController()
-        
-        let navigationController = UINavigationController(rootViewController: centerViewController)
-        navigationController.restorationIdentifier = "ExampleCenterNavigationControllerRestorationKey"
-        
-        let rightSideNavController = UINavigationController(rootViewController: rightSideDrawerViewController)
-        rightSideNavController.restorationIdentifier = "ExampleRightNavigationControllerRestorationKey"
-        
-        let leftSideNavController = UINavigationController(rootViewController: leftSideDrawerViewController)
-        leftSideNavController.restorationIdentifier = "ExampleLeftNavigationControllerRestorationKey"
-        
-        self.drawerController = DrawerController(centerViewController: navigationController, leftDrawerViewController: leftSideNavController, rightDrawerViewController: rightSideNavController)
-        self.drawerController.showsShadows = false
-        
-        self.drawerController.restorationIdentifier = "Drawer"
-        self.drawerController.maximumRightDrawerWidth = 200.0
-        self.drawerController.openDrawerGestureModeMask = .All
-        self.drawerController.closeDrawerGestureModeMask = .All
-        
-        self.drawerController.drawerVisualStateBlock = { (drawerController, drawerSide, percentVisible) in
-            let block = ExampleDrawerVisualStateManager.sharedManager.drawerVisualStateBlockForDrawerSide(drawerSide)
-            block?(drawerController, drawerSide, percentVisible)
-        }
-        
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        let tintColor = UIColor(red: 29 / 255, green: 173 / 255, blue: 234 / 255, alpha: 1.0)
-        self.window.tintColor = tintColor
-        
-        self.window.rootViewController = self.drawerController
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        LoginOrDrawerController(win: window)
         
         return true
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        self.window.backgroundColor = UIColor.whiteColor()
-        self.window.makeKeyAndVisible()
-        
         
         return true
     }

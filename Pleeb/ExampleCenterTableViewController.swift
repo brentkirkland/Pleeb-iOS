@@ -62,7 +62,7 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         super.viewDidLoad()
         
         // INITILIZE LOCATION MANAGER
-        
+        //changename
         updateMe()
         
         

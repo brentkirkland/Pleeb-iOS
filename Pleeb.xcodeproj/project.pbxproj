@@ -217,6 +217,8 @@
 		C70592ED1AA198290098CF61 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592EC1AA198290098CF61 /* SwiftyJSON.swift */; };
 		C70592FA1AA198830098CF61 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C70592F41AA1984B0098CF61 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C70592FD1AA199020098CF61 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592FC1AA199020098CF61 /* Model.swift */; };
+		C73EA01F1AA1BA9900BB7A80 /* SignUpLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */; };
+		C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -484,6 +486,8 @@
 		C70592EC1AA198290098CF61 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		C70592EE1AA1984B0098CF61 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		C70592FC1AA199020098CF61 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpLoginViewController.swift; path = "../../Sign-In-Controller/SIgnin/SignUpLoginViewController.swift"; sourceTree = "<group>"; };
+		C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginOrDrawerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -533,6 +537,7 @@
 				C70591791AA1979A0098CF61 /* Support Images */,
 				C7058FFD1AA195970098CF61 /* Annotations */,
 				C7058FFC1AA1957F0098CF61 /* Drawer */,
+				C73EA0111AA19F9F00BB7A80 /* Sign Up / Login */,
 				C7058FC61AA1936F0098CF61 /* Images.xcassets */,
 				C7058FC81AA1936F0098CF61 /* LaunchScreen.xib */,
 				C7058FBD1AA1936F0098CF61 /* Supporting Files */,
@@ -582,6 +587,7 @@
 				C7058FF41AA194FF0098CF61 /* AnimatedMenuButton.swift */,
 				C7058FF61AA1952A0098CF61 /* DrawerBarButtonItem.swift */,
 				C7058FF81AA1953A0098CF61 /* DrawerController.swift */,
+				C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */,
 				C7058FFA1AA1954B0098CF61 /* DrawerVisualState.swift */,
 			);
 			name = Drawer;
@@ -819,6 +825,14 @@
 				C70592FC1AA199020098CF61 /* Model.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		C73EA0111AA19F9F00BB7A80 /* Sign Up / Login */ = {
+			isa = PBXGroup;
+			children = (
+				C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */,
+			);
+			name = "Sign Up / Login";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1130,6 +1144,7 @@
 				C7058FC01AA1936F0098CF61 /* AppDelegate.swift in Sources */,
 				C7058FF71AA1952A0098CF61 /* DrawerBarButtonItem.swift in Sources */,
 				C7058FEF1AA194A70098CF61 /* SideDrawerTableViewCell.swift in Sources */,
+				C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */,
 				C7058FF31AA194C90098CF61 /* SideDrawerSectionHeaderView.swift in Sources */,
 				C7058FED1AA194920098CF61 /* TableViewCell.swift in Sources */,
 				C70590071AA196A60098CF61 /* TBClusterAnnotation.m in Sources */,
@@ -1141,6 +1156,7 @@
 				C70590011AA195DC0098CF61 /* TBQuadTree.m in Sources */,
 				C70592ED1AA198290098CF61 /* SwiftyJSON.swift in Sources */,
 				C7058FE51AA1942E0098CF61 /* ExampleCenterTableViewController.swift in Sources */,
+				C73EA01F1AA1BA9900BB7A80 /* SignUpLoginViewController.swift in Sources */,
 				C7058FEB1AA1947F0098CF61 /* ExampleRightSideDrawerViewController.swift in Sources */,
 				C7058FF11AA194B80098CF61 /* CenterTableViewCell.swift in Sources */,
 				C7058FE11AA193D10098CF61 /* ExampleDrawerVisualStateManager.swift in Sources */,
