@@ -39,11 +39,11 @@ class SideDrawerSectionHeaderView: UIView {
     }
     
     func commonSetup() {
-        self.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
+        self.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
         self.label = UILabel(frame: CGRect(x: 15, y: CGRectGetMaxY(self.bounds) - 28, width: CGRectGetWidth(self.bounds) - 30, height: 22))
         self.label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
         self.label.backgroundColor = UIColor.clearColor()
-        self.label.textColor = UIColor(red: 203 / 255, green: 206 / 255, blue: 209 / 255, alpha: 1.0)
+        self.label.textColor = UIColor(red: 40/255, green: 40/255, blue: 40/255, alpha: 1.0)
         self.label.autoresizingMask = .FlexibleWidth | .FlexibleTopMargin
         self.addSubview(self.label)
         self.clipsToBounds = false
@@ -51,7 +51,7 @@ class SideDrawerSectionHeaderView: UIView {
     
     override func drawRect(rect: CGRect) {
         let context = UIGraphicsGetCurrentContext()
-        let lineColor = UIColor(red: 94 / 255, green: 97 / 255, blue: 99 / 255, alpha: 1.0)
+        let lineColor = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1.0)
         CGContextSetStrokeColorWithColor(context, lineColor.CGColor)
         CGContextSetLineWidth(context, 1.0)
         CGContextMoveToPoint(context, CGRectGetMinX(self.bounds), CGRectGetMaxY(self.bounds) - 0.5)

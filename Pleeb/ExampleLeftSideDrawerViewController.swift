@@ -53,7 +53,7 @@ class ExampleLeftSideDrawerViewController: ExampleSideDrawerViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Left Drawer"
+        self.title = "Account"
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

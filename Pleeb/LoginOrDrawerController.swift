@@ -49,8 +49,7 @@ public class LoginOrDrawerController: UIWindow {
     
     public func setLogin(window: UIWindow!){
         
-        let tintColor = UIColor(red: 29 / 255, green: 173 / 255, blue: 234 / 255, alpha: 1.0)
-        window.tintColor = tintColor
+        window.tintColor = UIColor.whiteColor()
         
         window.rootViewController = SignUpLoginViewController(window: window)
         

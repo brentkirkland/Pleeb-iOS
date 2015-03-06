@@ -19,10 +19,10 @@
 // THE SOFTWARE.
 
 //
-//  AppDelegate
+//  LoginOrDrawerController.swift
 //  Pleeb
 //
-//  Edited by Brent Kirkland on 2/28/15.
+//  Created by Brent Kirkland on 2/28/15.
 //  Copyright (c) 2015 Brent Kirkland. All rights reserved.
 //
 

@@ -43,13 +43,13 @@ class ExampleSideDrawerViewController: ExampleViewController, UITableViewDataSou
         self.view.addSubview(self.tableView)
         self.tableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
         
-        self.tableView.backgroundColor = UIColor(red: 110 / 255, green: 113 / 255, blue: 115 / 255, alpha: 1.0)
-        self.tableView.separatorStyle = .None
+        self.tableView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 161 / 255, green: 164 / 255, blue: 166 / 255, alpha: 1.0)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 55 / 255, green: 70 / 255, blue: 77 / 255, alpha: 1.0)]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 26 / 255, green: 26 / 255, blue: 26 / 255, alpha: 1.0)]
         
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -101,9 +101,9 @@ class ExampleSideDrawerViewController: ExampleViewController, UITableViewDataSou
         switch indexPath.section {
         case DrawerSection.ViewSelection.rawValue:
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Quick View Change"
+                cell.textLabel?.text = "brent@umail.ucsb.edu"
             } else {
-                cell.textLabel?.text = "Full View Change"
+                cell.textLabel?.text = "(949) 292-6284"
             }
             
             cell.accessoryType = .DisclosureIndicator
@@ -249,7 +249,7 @@ class ExampleSideDrawerViewController: ExampleViewController, UITableViewDataSou
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case DrawerSection.ViewSelection.rawValue:
-            return "New Center View"
+            return "Personal"
         case DrawerSection.DrawerWidth.rawValue:
             return "Drawer Width"
         case DrawerSection.ShadowToggle.rawValue:

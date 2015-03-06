@@ -21,7 +21,7 @@
 import UIKit
 
 private class DisclosureIndicator: UIView {
-    var color: UIColor = UIColor.whiteColor()
+    var color: UIColor = UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1.0)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -123,8 +123,8 @@ private class CustomCheckmark: UIControl {
 }
 
 class TableViewCell: UITableViewCell {
-    var accessoryCheckmarkColor: UIColor = UIColor.whiteColor()
-    var disclosureIndicatorColor: UIColor = UIColor.whiteColor()
+    var accessoryCheckmarkColor: UIColor = UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1.0)
+    var disclosureIndicatorColor: UIColor = UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1.0)
     override var accessoryType: UITableViewCellAccessoryType {
         didSet {
             if self.accessoryType == .Checkmark {
