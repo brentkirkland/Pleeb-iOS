@@ -13,6 +13,7 @@ This is the controller for the sign up / login page made by yours truly
 
 TODO:
 
+Network errors!
 Fix TBAnnotationClustering as a repo possibly? Update for accuracy
 
 
