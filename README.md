@@ -15,6 +15,6 @@ TODO:
 
 Network errors!
 Fix TBAnnotationClustering as a repo possibly? Update for accuracy
-
+Known issue: When gps signal is weak via wifi or poor reception, the area that one can check in is much larger
 
 

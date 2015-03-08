@@ -61,6 +61,8 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "L I V V"
+        
         // INITILIZE LOCATION MANAGER
         //changename
         updateMe()
@@ -97,7 +99,14 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         
         let barColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
         self.navigationController?.navigationBar.barTintColor = barColor
+        //self.navigationController?.navigationBar.titleTextAttributes =
         
+        
+        let font = UIFont(name: "HelveticaNeue-UltraLight", size: 30)
+        if let font = font {
+            self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : font, NSForegroundColorAttributeName : UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 0.25)]
+            self.navigationController?.navigationBar.setTitleVerticalPositionAdjustment(4.0, forBarMetrics: .Default)
+        }
         self.navigationController?.view.layer.cornerRadius = 10.0
         
         let backView = UIView()
