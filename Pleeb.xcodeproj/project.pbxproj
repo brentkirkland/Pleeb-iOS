@@ -219,6 +219,8 @@
 		C70592FD1AA199020098CF61 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592FC1AA199020098CF61 /* Model.swift */; };
 		C73EA01F1AA1BA9900BB7A80 /* SignUpLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */; };
 		C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */; };
+		C7ADAA3B1AAD054000AD7510 /* ilovevista.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA391AAD054000AD7510 /* ilovevista.png */; };
+		C7ADAA3C1AAD054000AD7510 /* ilovevista@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -488,6 +490,8 @@
 		C70592FC1AA199020098CF61 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpLoginViewController.swift; path = "../../Sign-In-Controller/SIgnin/SignUpLoginViewController.swift"; sourceTree = "<group>"; };
 		C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginOrDrawerController.swift; sourceTree = "<group>"; };
+		C7ADAA391AAD054000AD7510 /* ilovevista.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ilovevista.png; sourceTree = "<group>"; };
+		C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilovevista@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -790,6 +794,8 @@
 				C705921D1AA1979A0098CF61 /* Comp 4_00081@2x.png */,
 				C705921E1AA1979A0098CF61 /* Comp 4_00082.png */,
 				C705921F1AA1979A0098CF61 /* Comp 4_00082@2x.png */,
+				C7ADAA391AAD054000AD7510 /* ilovevista.png */,
+				C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */,
 				C70592201AA1979A0098CF61 /* Comp 4_00083.png */,
 				C70592211AA1979A0098CF61 /* Comp 4_00083@2x.png */,
 				C70592221AA1979A0098CF61 /* Comp 4_00084.png */,
@@ -886,6 +892,7 @@
 				TargetAttributes = {
 					C7058FB91AA1936F0098CF61 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = BF98Z4WZZW;
 					};
 					C7058FCE1AA1936F0098CF61 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1026,6 +1033,7 @@
 				C70592A91AA1979A0098CF61 /* Comp 4_00060@2x.png in Resources */,
 				C70592D81AA1979A0098CF61 /* Comp 4_00084.png in Resources */,
 				C70592BF1AA1979A0098CF61 /* Comp 4_00071@2x.png in Resources */,
+				C7ADAA3C1AAD054000AD7510 /* ilovevista@2x.png in Resources */,
 				C70592541AA1979A0098CF61 /* Comp 4_00018.png in Resources */,
 				C70592D11AA1979A0098CF61 /* Comp 4_00080@2x.png in Resources */,
 				C70592411AA1979A0098CF61 /* Comp 4_00008@2x.png in Resources */,
@@ -1066,6 +1074,7 @@
 				C705925C1AA1979A0098CF61 /* Comp 4_00022.png in Resources */,
 				C70592981AA1979A0098CF61 /* Comp 4_00052.png in Resources */,
 				C705925B1AA1979A0098CF61 /* Comp 4_00021@2x.png in Resources */,
+				C7ADAA3B1AAD054000AD7510 /* ilovevista.png in Resources */,
 				C705929D1AA1979A0098CF61 /* Comp 4_00054@2x.png in Resources */,
 				C70592DE1AA1979A0098CF61 /* Comp 4_00087.png in Resources */,
 				C70592361AA1979A0098CF61 /* Comp 4_00003.png in Resources */,
@@ -1285,6 +1294,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/build/ios",
@@ -1292,6 +1303,7 @@
 				INFOPLIST_FILE = Pleeb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pleeb/Pleeb-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1302,6 +1314,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/build/ios",
@@ -1309,6 +1323,7 @@
 				INFOPLIST_FILE = Pleeb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pleeb/Pleeb-Bridging-Header.h";
 			};
 			name = Release;

@@ -152,31 +152,54 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             var location3 = (center.longitude - (lon*2.5))
             var location4 = (center.longitude + (lon*2.5))
             
+            let users = User.allObjects()
+            let user = users[UInt(0)] as User
+            
+            
             //set up string for alamo
             var newCoords = "?x1=\(location3)&x2=\(location4)&y1=\(location1)&y2=\(location2)"
             
+            let URL = NSURL(string:"http://198.199.118.177:9000/api/posts\(newCoords)")
+            
+            let mutableURLRequest = NSMutableURLRequest(URL: URL!)
+            mutableURLRequest.HTTPMethod = "GET"
+            mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            mutableURLRequest.setValue("Bearer \(user.token)", forHTTPHeaderField: "Authorization")
+            
+            var JSONSerializationError: NSError? = nil
+            
+            
+            
             //call alamo
-            Alamofire.request(.GET, "http://198.199.118.177:9000/api/ratings\(newCoords)").responseJSON { (req, res, json, error) in
+            Alamofire.request(mutableURLRequest).responseJSON { (req, res, json, error) in
                 if(error != nil) {
                     NSLog("Error: \(error)")
-                    println(req)
-                    println(res)
+                    println("Request: \(req)")
+                    println("Response: \(res)")
+                    println("Data: \(json)")
+                    println("Error: \(error)")
+
+                    //handle the case where there is no points
                 }
                 else {
                     
                     
-                    NSLog("Success: http://198.199.118.177:9000/api/ratings\(newCoords)")
+                    NSLog("Success: http://198.199.118.177:9000/api/posts\(newCoords)")
                     
                     var myJSON = JSON(json!)
                     
                     var x = 0
+                    
+                    
                     var count = myJSON.count
+                    println("the count is: \(count)")
                     
                     let realm = RLMRealm.defaultRealm()
                     
                     //clear the db
                     realm.beginWriteTransaction()
-                    realm.deleteAllObjects()
+                    realm.deleteObjects(Vote.allObjects())
+                    realm.deleteObjects(SizeofPoints.allObjects())
                     realm.commitWriteTransaction()
                     
                     var newVote = [Vote](count: count, repeatedValue: Vote())
@@ -252,9 +275,10 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
     
     func post()->Void {
         
+        let users = User.allObjects()
+        let user = users[UInt(0)] as User
+        
         let parameters = [
-            "owner": "Cop",
-            "up": true,
             "loc": [
                 "type": "Point",
                 "coordinates": [
@@ -264,9 +288,27 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             ]
         ]
         
+        let URL = NSURL(string: "http://198.199.118.177:9000/api/posts")!
+        let mutableURLRequest = NSMutableURLRequest(URL: URL)
+        mutableURLRequest.HTTPMethod = "POST"
+        
+        var JSONSerializationError: NSError? = nil
+        mutableURLRequest.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &JSONSerializationError)
+        mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        mutableURLRequest.setValue("Bearer \(user.token)", forHTTPHeaderField: "Authorization")
+        
         print(parameters)
         
-        Alamofire.request(.POST, "http://198.199.118.177:9000/api/ratings", parameters: parameters, encoding: .JSON)
+        Alamofire.request(mutableURLRequest).response {
+            
+            (request, response, data, error) -> Void in
+            
+            println("Requesttttt: \(request)")
+            println("Responseeeee: \(response)")
+            println("Dataaaa: \(data)")
+            println("Erroreeee: \(error)")
+            
+        }
         
         //mapView.removeAnnotations(mapView.annotations)
         //requestUpdate()
@@ -310,6 +352,8 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
                 var newRegion = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
                 mapView.setRegion(newRegion, animated: false)
                 //mapView.removeAnnotations(mapView.annotations)
+                
+                //setUpVotes()
                 
                 //TODO MAKE IT NOT CENTER ON  HOME AND WARN THE USER//
                 //IF THIS HAPPEN IT CRASHES THE APP BTW
@@ -729,6 +773,8 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         if newState == MKAnnotationViewDragState.Ending {
             timer.invalidate()
             x = 0
+            
+            
             myAnnotationView.image = UIImage(named: "location_button.png")
             //myAnnotationView = restore
             println("omg it's working")
@@ -757,8 +803,10 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             x = x + 1
         }else {
             x = 0
+            
             post(true)
-            setUpVotes()
+            
+            //setUpVotes()
             
             timer.invalidate()
             
@@ -773,9 +821,9 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
     
     func post(vote: Bool)->Void {
         
+        println("im making it here at least")
+        
         let parameters = [
-            "owner": "Cop",
-            "up": vote,
             "loc": [
                 "type": "Point",
                 "coordinates": [
@@ -785,10 +833,47 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             ]
         ]
         
-        print(parameters)
         
-        Alamofire.request(.POST, "http://198.199.118.177:9000/api/ratings", parameters: parameters, encoding: .JSON)
+        println("and heree")
         
+        let URL:NSURL! = NSURL(string: "http://198.199.118.177:9000/api/posts")
+        let mutableURLRequest = NSMutableURLRequest(URL: URL)
+        mutableURLRequest.HTTPMethod = "POST"
+        
+        let us = User.allObjects()
+        let u = us[UInt(0)] as User
+//
+//        println(us[UInt(0)])
+        
+//        println("and here \(user.token)")
+//        println("and hereeee \(user.token)")
+        
+        println("fuck you realm")
+        
+        var JSONSerializationError: NSError? = nil
+        mutableURLRequest.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &JSONSerializationError)
+        mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        mutableURLRequest.setValue("Bearer \(u.token)", forHTTPHeaderField: "Authorization")
+        
+        //print(parameters)
+        
+        Alamofire.request(mutableURLRequest).response {
+            (request, response, data, error) in
+
+            
+            println("Requesttttt: \(request)")
+            println("Responseeeee: \(response)")
+            println("Dataaaa: \(data)")
+            println("Erroreeee: \(error)")
+            
+            if (error == nil){
+                
+                self.setUpVotes()
+            }
+            
+        }
+        
+        //setUpVotes()
         
     }
     

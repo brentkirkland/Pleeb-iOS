@@ -20,7 +20,7 @@ class SizeofPoints: RLMObject {
 
 class User: RLMObject {
     
-    dynamic var email: String = ""
+    //dynamic var email: String = ""
     dynamic var phone: Int = 1231231234
     dynamic var token: String = ""
     

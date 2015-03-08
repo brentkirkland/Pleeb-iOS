@@ -27,6 +27,7 @@
 //
 
 import UIKit
+import Realm
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,9 +36,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        LoginOrDrawerController(win: window)
         
+        
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        
+        
+        var user: RLMResults = User.allObjects()
+        
+        if (user.count == 0) {
+        
+            LoginOrDrawerController(win: window)
+        
+        }else {
+            
+            LoginOrDrawerController(window: self.window)
+            
+        }
         return true
     }
     
