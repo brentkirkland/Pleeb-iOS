@@ -43,6 +43,7 @@ CGFloat TBScaledValueForValue(CGFloat value)
         self.backgroundColor = [UIColor clearColor];
         [self setupLabel];
         [self setCount:1];
+        
     }
     return self;
 }
@@ -65,14 +66,22 @@ CGFloat TBScaledValueForValue(CGFloat value)
 - (void)setCount:(NSUInteger)count
 {
     _count = count;
+    if (_count == 1) { _isParty = YES; } else { _isParty = NO; }
     
-    CGRect newBounds = CGRectMake(0, 0, roundf(44 * TBScaledValueForValue(count)), roundf(44 * TBScaledValueForValue(count)));
+    CGRect newBounds = CGRectMake(0, 0, roundf(55 * TBScaledValueForValue(count)), roundf(55 * TBScaledValueForValue(count)));
     self.frame = TBCenterRect(newBounds, self.center);
     
     CGRect newLabelBounds = CGRectMake(0, 0, newBounds.size.width / 1.3, newBounds.size.height / 1.3);
     self.countLabel.frame = TBCenterRect(newLabelBounds, TBRectCenter(newBounds));
-    self.countLabel.text = [@(_count) stringValue];
     
+    if (_isParty) {
+        
+        self.countLabel.text = @"";
+        NSLog(@"%lu", count);
+        
+    }else{
+        self.countLabel.text = [@(_count) stringValue];
+    }
     [self setNeedsDisplay];
 }
 
@@ -82,14 +91,22 @@ CGFloat TBScaledValueForValue(CGFloat value)
     
     CGContextSetAllowsAntialiasing(context, true);
     
-    UIColor *outerCircleStrokeColor = [UIColor colorWithWhite:0 alpha:0.25];
-    UIColor *innerCircleStrokeColor = [UIColor colorWithWhite:0 alpha:0.05];
-    UIColor *innerCircleFillColor = [UIColor colorWithRed:(163.0 / 255.0) green:(110 / 255.0) blue:(249 / 255.0) alpha:1.0];
+    UIColor *outerCircleStrokeColor;
+    UIColor *innerCircleStrokeColor;
+    UIColor *innerCircleFillColor;
+    if (_isParty){
+        innerCircleFillColor = [UIColor colorWithRed:(26.0 / 255.0) green:(26.0 / 255.0) blue:(26.0 / 255.0) alpha:0.8];
+        outerCircleStrokeColor = [UIColor colorWithWhite:1 alpha: 1.0];
+        innerCircleStrokeColor = [UIColor colorWithWhite:1 alpha: 1.0];
+    }else {
+        innerCircleFillColor = [UIColor colorWithRed:(26.0 / 255.0) green:(26.0 / 255.0) blue:(26.0 / 255.0) alpha:0.8];
+        outerCircleStrokeColor = [UIColor colorWithWhite:1 alpha: 1.0];
+        innerCircleStrokeColor = [UIColor colorWithWhite:1 alpha: 1.0];}
     
     CGRect circleFrame = CGRectInset(rect, 4, 4);
     
     [outerCircleStrokeColor setStroke];
-    CGContextSetLineWidth(context, 5.0);
+    CGContextSetLineWidth(context, 8.0);
     CGContextStrokeEllipseInRect(context, circleFrame);
     
     [innerCircleStrokeColor setStroke];

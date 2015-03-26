@@ -32,15 +32,19 @@ enum CenterViewControllerSection: Int {
     case RightDrawerAnimation
 }
 
-class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate   {
-    var tableView: UITableView!
+//class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate   {
+class ExampleCenterTableViewController: ExampleViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate   {
+    var tableView: TagSelectorTableView!
     var mapView: MKMapView!
     var manager:CLLocationManager!
+    var address: String!
     var myAnnotationView: MKAnnotationView!
     var restore: MKAnnotationView!
     var x: Int = 0
     var timer: NSTimer!
     var coordinateQuadTree: TBCoordinateQuadTree!
+    
+    var connection: Bool! = true
     
     //the following variables help make the map load on the location more easily
     var intialLocationLoad = false
@@ -61,7 +65,6 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "L I V V"
         
         // INITILIZE LOCATION MANAGER
         //changename
@@ -70,7 +73,8 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         
         // INITIALIZE MAPVIEW
         
-        mapView = MKMapView(frame: super.view.bounds)
+        //mapView = MKMapView(frame: super.view.bounds)
+        mapView = MKMapView(frame: CGRectMake(0,0, self.view.frame.width, self.view.frame.height))
         mapView.delegate = self
         //show user location on map
         mapView.showsUserLocation = true
@@ -80,9 +84,9 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         //add some gesture recognizers
         
         
-        var singletap: UITapGestureRecognizer  = UITapGestureRecognizer(target: self, action: "singleTap")
-        singletap.numberOfTapsRequired = 1
-        mapView.addGestureRecognizer(singletap)
+//        var singletap: UITapGestureRecognizer  = UITapGestureRecognizer(target: self, action: "singleTap")
+//        singletap.numberOfTapsRequired = 1
+//        mapView.addGestureRecognizer(singletap)
         
         
         //REQUEST POINTS
@@ -97,36 +101,71 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         self.setupLeftMenuButton()
         self.setupRightMenuButton()
         
-        let barColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        //let barColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
+        let barColor = UIColor.clearColor()
         self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.backgroundColor = barColor
+        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.view.backgroundColor = barColor
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         //self.navigationController?.navigationBar.titleTextAttributes =
         
+//        self.title = "L I V V"
+//        let font = UIFont(name: "HelveticaNeue-UltraLight", size: 30)
+//        if let font = font {
+//            self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : font, NSForegroundColorAttributeName : UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1.0)]
+//            self.navigationController?.navigationBar.setTitleVerticalPositionAdjustment(4.5, forBarMetrics: .Default)
+//        }
         
-        let font = UIFont(name: "HelveticaNeue-UltraLight", size: 30)
-        if let font = font {
-            self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : font, NSForegroundColorAttributeName : UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 0.25)]
-            self.navigationController?.navigationBar.setTitleVerticalPositionAdjustment(4.0, forBarMetrics: .Default)
-        }
+        var button =  UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        button.frame = CGRectMake(0, 0, 100, 40) as CGRect
+        button.backgroundColor = UIColor.clearColor()
+        button.titleLabel?.font = UIFont(name: "HelveticaNeue-UltraLight", size: 30)
+        button.setTitle("L I V V", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1.0), forState: UIControlState.Normal)
+        button.addTarget(self, action: Selector("clickOnButton:"), forControlEvents: UIControlEvents.TouchUpInside)
+        self.navigationItem.titleView = button
+        
         self.navigationController?.view.layer.cornerRadius = 10.0
         
-        let backView = UIView()
-        backView.backgroundColor = UIColor(red: 208/255, green: 208/255, blue: 208/255, alpha: 1.0)
+        //let backView = UIView()
+        //backView.backgroundColor = UIColor(red: 208/255, green: 208/255, blue: 208/255, alpha: 1.0)
         //self.tableView.backgroundView = backView
         
         
+       
+        
     }
     
-    func singleTap(){
-        
-        if (mapView.showsUserLocation){
-            mapView.showsUserLocation = false
-        }else{
-            mapView.showsUserLocation = true
+    func clickOnButton(sender: UIButton!)
+    {
+        if tableView != nil {
+            tableView.endEditing(true)
+            tableView.closeWindow(tableView)
             
+//            tableView.removeFromSuperview()
+//            tableView = nil
+//            mapView.showsUserLocation = true
+        }else {
+            currentLocation()
         }
-        
-        
     }
+    
+    
+    
+    
+//    func singleTap(){
+//        
+////        if (mapView.showsUserLocation){
+////            mapView.showsUserLocation = false
+////        }else{
+////            mapView.showsUserLocation = true
+////            
+////        }
+//        
+//        println("tap")
+//    }
     
     func doubleTap(){
         
@@ -135,13 +174,13 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if touch.view.isKindOfClass(MKAnnotationView) {
-            return false
-        }
-        return true
-    }
-    
+//    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+//        if touch.view.isKindOfClass(MKAnnotationView) {
+//            return false
+//        }
+//        return true
+//    }
+//    
     func setUpVotes(){
         
         var region: MKCoordinateRegion! = mapView.region
@@ -185,14 +224,33 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
                     NSLog("Error: \(error)")
                     println("Request: \(req)")
                     println("Response: \(res)")
-                    println("Data: \(json)")
+                    println("JSON Data: \(json)")
                     println("Error: \(error)")
+                    
+                    var alert: UIAlertView = UIAlertView(title: "Network Error", message: "You seem to have a bad connection.", delegate: self, cancelButtonTitle: "Close")
+                    
 
-                    //handle the case where there is no points
+                    
+                    
+                    let realm = RLMRealm.defaultRealm()
+                    realm.beginWriteTransaction()
+                    realm.deleteObjects(SizeofPoints.allObjects())
+                    let size = SizeofPoints()
+                    size.length = "0"
+                    realm.addObject(size)
+                    realm.commitWriteTransaction()
+                    
+                    alert.dismissWithClickedButtonIndex(0, animated: true)
+                    alert.show()
+                    
+                    self.connection = false
+
                 }
                 else {
                     
+                    self.connection = true
                     
+                    println("The JSON Data: \(JSON(json!))")
                     NSLog("Success: http://198.199.118.177:9000/api/posts\(newCoords)")
                     
                     var myJSON = JSON(json!)
@@ -208,6 +266,8 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
                     //clear the db
                     realm.beginWriteTransaction()
                     realm.deleteObjects(Vote.allObjects())
+                    realm.deleteObjects(Tag.allObjects())
+                    realm.deleteObjects(Event.allObjects())
                     realm.deleteObjects(SizeofPoints.allObjects())
                     realm.commitWriteTransaction()
                     
@@ -217,34 +277,62 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
                     realm.beginWriteTransaction()
                     
                     let size = SizeofPoints()
-                    size.length = "\(count)"
+                    //count is minus 1 to account for default tag
+                    size.length = "\(count - 1)"
                     realm.addObject(size)
                     
-                    
-                    
                     while x < count {
-                        
-                        //for now this works... but in the future it would be best to compare if a vote already exists or if it were deleted
-                        
                         
                         let newVote = Vote()
                         
                         var lon: Double = myJSON[x]["loc"]["coordinates"][0].doubleValue
                         var lat: Double = myJSON[x]["loc"]["coordinates"][1].doubleValue
+                        var address: String = myJSON[x]["address"].stringValue
                         
-                        newVote.bump = "\(lon), \(lat), Isla Vista, California, +1 949 292 6284"
+                        let newEvent = Event()
                         
-                        println("\(lon), \(lat), Isla Vista, California, +1 949 292 6284")
+                        for (key, value) in myJSON[x]["tags"] {
+                            
+                            var tag = Tag()
+                            tag.name = key
+                            tag.weight = value.intValue
+                            
+                            newEvent.tags.addObject(tag)
+                            
+                        }
+                        var topTag: String = myJSON[x]["toptag"].stringValue
+                        var weight: String = myJSON[x]["weight"].stringValue
                         
-                        realm.addObject(newVote)
+                        newEvent.address = address
+                        realm.addObject(newEvent)
                         
+                        if (x != count - 1) {
+                            newVote.bump = "\(lon), \(lat), \(address), \(topTag)-\(weight)"
+                            println("\(lon), \(lat), \(address), \(topTag)-\(weight)")
+                            realm.addObject(newVote)
+                        }
                         
                         x++
                         
                     }
                     
-                    
                     realm.commitWriteTransaction()
+                    
+                    
+                    
+// TEST TO SEE IF REALM WORKED. KEEPING FOR REFERENCE
+//                    let events = Event.allObjects()
+//                    var i: UInt
+//                    var j: UInt
+//                    for i = 0; i < events.count; i++ {
+//                        
+//                        println("the commited event is: \((events[i] as Event).address) with the following keys:")
+//                        for j = 0; j < (events[i] as Event).tags.count; j++ {
+//                            
+//                            println("The key name is: \(((events[i] as Event).tags[j] as Tag).name)")
+//                            println("With a weight of: \(((events[i] as Event).tags[j] as Tag).weight)")
+//                        }
+//                    }
                     
                     self.coordinateQuadTree  = TBCoordinateQuadTree()
                     self.coordinateQuadTree.mapView = self.mapView
@@ -282,7 +370,7 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
     
     //POST
     
-    func post()->Void {
+    func post(tag: String!)->Void {
         
         let users = User.allObjects()
         let user = users[UInt(0)] as User
@@ -294,7 +382,9 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
                     mapView.userLocation.coordinate.longitude,
                     mapView.userLocation.coordinate.latitude
                 ]
-            ]
+            ],
+            "address": address,
+            "tag": tag
         ]
         
         let URL = NSURL(string: "http://198.199.118.177:9000/api/posts")!
@@ -317,10 +407,23 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             println("Dataaaa: \(data)")
             println("Erroreeee: \(error)")
             
+            if error == nil {
+                
+                self.tableView.closeWindow(self.tableView)
+                
+                self.setUpVotes()
+                
+            }else {
+                
+                var alert: UIAlertView = UIAlertView(title: "Network Error", message: "You seem to have a bad connection.", delegate: self, cancelButtonTitle: "Close")
+                self.tableView.closeWindow(self.tableView)
+                alert.dismissWithClickedButtonIndex(0, animated: true)
+                alert.show()
+                
+                
+            }
+            
         }
-        
-        //mapView.removeAnnotations(mapView.annotations)
-        //requestUpdate()
         
     }
     
@@ -341,6 +444,7 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         let spanX = 0.01
         let spanY = 0.01
         var newRegion = MKCoordinateRegion(center: mapView.userLocation.coordinate, span: MKCoordinateSpanMake(spanX, spanY))
+        
         mapView.setRegion(newRegion, animated: false)
         //mapView.removeAnnotations(mapView.annotations)
         
@@ -349,8 +453,18 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         //requestUpdate()
     }
     
+//    func moveToCurrentLocation(){
+//        
+//        var newRegion = self.mapView.region
+//        var center = self.mapView.convertCoordinate(self.mapView.userLocation.coordinate, toPointToView: self.mapView)
+//        mapView.center = center
+//        mapView.setRegion(newRegion, animated: false)
+//        
+//    }
+    
     func mapView(mapView: MKMapView!, regionDidChangeAnimated animated: Bool) {
         
+        if connection == true{
         println(mapView.region.span.latitudeDelta)
         println(mapView.region.span.longitudeDelta)
         if intialLocationLoad == true {
@@ -375,6 +489,10 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             self.updateMapViewAnnotationsWithAnnotations(annotations)
             //        })
             //requestUpdate()
+        }
+        } else {
+            
+            setUpVotes()
         }
     }
     
@@ -415,172 +533,6 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         self.tableView.reloadData()
     }
     
-    // MARK: - UITableViewDataSource
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case CenterViewControllerSection.LeftDrawerAnimation.rawValue, CenterViewControllerSection.RightDrawerAnimation.rawValue:
-            return 6
-        case CenterViewControllerSection.LeftViewState.rawValue, CenterViewControllerSection.RightViewState.rawValue:
-            return 1
-        default:
-            return 0
-        }
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let CellIdentifier = "Cell"
-        
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(CellIdentifier) as? UITableViewCell
-        
-        if cell == nil {
-            cell = CenterTableViewCell(style: .Default, reuseIdentifier: CellIdentifier)
-            cell.selectionStyle = .Gray
-        }
-        
-        let selectedColor = UIColor(red: 1 / 255, green: 15 / 255, blue: 25 / 255, alpha: 1.0)
-        let unselectedColor = UIColor(red: 79 / 255, green: 93 / 255, blue: 102 / 255, alpha: 1.0)
-        
-        switch indexPath.section {
-        case CenterViewControllerSection.LeftDrawerAnimation.rawValue, CenterViewControllerSection.RightDrawerAnimation.rawValue:
-            var animationTypeForSection: DrawerAnimationType
-            
-            if indexPath.section == CenterViewControllerSection.LeftDrawerAnimation.rawValue {
-                animationTypeForSection = ExampleDrawerVisualStateManager.sharedManager.leftDrawerAnimationType
-            } else {
-                animationTypeForSection = ExampleDrawerVisualStateManager.sharedManager.rightDrawerAnimationType
-            }
-            
-            if animationTypeForSection.rawValue == indexPath.row {
-                cell.accessoryType = .Checkmark
-                cell.textLabel?.textColor = selectedColor
-            } else {
-                cell.accessoryType = .None
-                cell.textLabel?.textColor = unselectedColor
-            }
-            
-            switch indexPath.row {
-            case DrawerAnimationType.None.rawValue:
-                cell.textLabel?.text = "None"
-            case DrawerAnimationType.Slide.rawValue:
-                cell.textLabel?.text = "Slide"
-            case DrawerAnimationType.SlideAndScale.rawValue:
-                cell.textLabel?.text = "Slide and Scale"
-            case DrawerAnimationType.SwingingDoor.rawValue:
-                cell.textLabel?.text = "Swinging Door"
-            case DrawerAnimationType.Parallax.rawValue:
-                cell.textLabel?.text = "Parallax"
-            case DrawerAnimationType.AnimatedBarButton.rawValue:
-                cell.textLabel?.text = "Animated Menu Button"
-            default:
-                break
-            }
-        case CenterViewControllerSection.LeftViewState.rawValue:
-            cell.textLabel?.text = "Enabled"
-            
-            if self.evo_drawerController?.leftDrawerViewController != nil {
-                cell.accessoryType = .Checkmark
-                cell.textLabel?.textColor = selectedColor
-            } else {
-                cell.accessoryType = .None
-                cell.textLabel?.textColor = unselectedColor
-            }
-        case CenterViewControllerSection.RightViewState.rawValue:
-            cell.textLabel?.text = "Enabled"
-            
-            if self.evo_drawerController?.rightDrawerViewController != nil {
-                cell.accessoryType = .Checkmark
-                cell.textLabel?.textColor = selectedColor
-            } else {
-                cell.accessoryType = .None
-                cell.textLabel?.textColor = unselectedColor
-            }
-        default:
-            break
-        }
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case CenterViewControllerSection.LeftDrawerAnimation.rawValue:
-            return "Left Drawer Animation";
-        case CenterViewControllerSection.RightDrawerAnimation.rawValue:
-            return "Right Drawer Animation";
-        case CenterViewControllerSection.LeftViewState.rawValue:
-            return "Left Drawer";
-        case CenterViewControllerSection.RightViewState.rawValue:
-            return "Right Drawer";
-        default:
-            return nil
-        }
-    }
-    
-    // MARK: - UITableViewDelegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.section {
-        case CenterViewControllerSection.LeftDrawerAnimation.rawValue, CenterViewControllerSection.RightDrawerAnimation.rawValue:
-            if indexPath.section == CenterViewControllerSection.LeftDrawerAnimation.rawValue {
-                ExampleDrawerVisualStateManager.sharedManager.leftDrawerAnimationType = DrawerAnimationType(rawValue: indexPath.row)!
-            } else {
-                ExampleDrawerVisualStateManager.sharedManager.rightDrawerAnimationType = DrawerAnimationType(rawValue: indexPath.row)!
-            }
-            
-            tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
-            tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        case CenterViewControllerSection.LeftViewState.rawValue, CenterViewControllerSection.RightViewState.rawValue:
-            var sideDrawerViewController: UIViewController?
-            var drawerSide = DrawerSide.None
-            
-            if indexPath.section == CenterViewControllerSection.LeftViewState.rawValue {
-                sideDrawerViewController = self.evo_drawerController?.leftDrawerViewController
-                drawerSide = .Left
-            } else if indexPath.section == CenterViewControllerSection.RightViewState.rawValue {
-                sideDrawerViewController = self.evo_drawerController?.rightDrawerViewController
-                drawerSide = .Right
-            }
-            
-            if sideDrawerViewController != nil {
-                self.evo_drawerController?.closeDrawerAnimated(true, completion: { (finished) -> Void in
-                    if drawerSide == DrawerSide.Left {
-                        self.evo_drawerController?.leftDrawerViewController = nil
-                        self.navigationItem.setLeftBarButtonItems(nil, animated: true)
-                    } else if drawerSide == .Right {
-                        self.evo_drawerController?.rightDrawerViewController = nil
-                        self.navigationItem.setRightBarButtonItems(nil, animated: true)
-                    }
-                    
-                    tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-                    tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-                    tableView.deselectRowAtIndexPath(indexPath, animated: true)
-                })
-            } else {
-                if drawerSide == .Left {
-                    let vc = ExampleLeftSideDrawerViewController()
-                    let navC = UINavigationController(rootViewController: vc)
-                    self.evo_drawerController?.leftDrawerViewController = navC
-                    self.setupLeftMenuButton()
-                } else if drawerSide == .Right {
-                    let vc = ExampleRightSideDrawerViewController()
-                    let navC = UINavigationController(rootViewController: vc)
-                    self.evo_drawerController?.rightDrawerViewController = navC
-                    self.setupRightMenuButton()
-                }
-                
-                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-                tableView.selectRowAtIndexPath(indexPath, animated: false, scrollPosition: .None)
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            }
-        default:
-            break
-        }
-    }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         
@@ -591,10 +543,10 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId)
             pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             //pinView!.annotation = annotation
-            pinView!.draggable = true
+            pinView!.draggable = false
             pinView!.canShowCallout = false
             pinView!.annotation = annotation
-            pinView!.selected = true
+            pinView!.selected = false
             pinView!.image = UIImage(named: "location_button.png")
             pinView.layer.zPosition = 1
             return pinView
@@ -609,7 +561,7 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
             annotationView = TBClusterAnnotationView(annotation: annotation, reuseIdentifier: TBAnnotationViewReuseID)
         }
         
-        annotationView.canShowCallout = false
+        annotationView.canShowCallout = true
         var annotation_count: TBClusterAnnotation! = annotation as TBClusterAnnotation
         
         annotationView.count = UInt(annotation_count.count)
@@ -642,249 +594,265 @@ class ExampleCenterTableViewController: ExampleViewController, UITableViewDataSo
         //                self.mapView.removeAnnotations([toRemove.allObjects])
         //            }
     }
+//    
+//    var images: NSMutableArray = [
+//        "Comp 4_00000.png",
+//        "Comp 4_00001.png",
+//        "Comp 4_00002.png",
+//        "Comp 4_00003.png",
+//        "Comp 4_00004.png",
+//        "Comp 4_00005.png",
+//        "Comp 4_00006.png",
+//        "Comp 4_00007.png",
+//        "Comp 4_00008.png",
+//        "Comp 4_00009.png",
+//        "Comp 4_00010.png",
+//        "Comp 4_00011.png",
+//        "Comp 4_00012.png",
+//        "Comp 4_00013.png",
+//        "Comp 4_00014.png",
+//        "Comp 4_00015.png",
+//        "Comp 4_00016.png",
+//        "Comp 4_00017.png",
+//        "Comp 4_00018.png",
+//        "Comp 4_00019.png",
+//        "Comp 4_00020.png",
+//        "Comp 4_00021.png",
+//        "Comp 4_00022.png",
+//        "Comp 4_00023.png",
+//        "Comp 4_00024.png",
+//        "Comp 4_00025.png",
+//        "Comp 4_00026.png",
+//        "Comp 4_00027.png",
+//        "Comp 4_00028.png",
+//        "Comp 4_00029.png",
+//        "Comp 4_00030.png",
+//        "Comp 4_00031.png",
+//        "Comp 4_00032.png",
+//        "Comp 4_00033.png",
+//        "Comp 4_00034.png",
+//        "Comp 4_00035.png",
+//        "Comp 4_00036.png",
+//        "Comp 4_00037.png",
+//        "Comp 4_00038.png",
+//        "Comp 4_00039.png",
+//        "Comp 4_00040.png",
+//        "Comp 4_00041.png",
+//        "Comp 4_00042.png",
+//        "Comp 4_00043.png",
+//        "Comp 4_00044.png",
+//        "Comp 4_00045.png",
+//        "Comp 4_00046.png",
+//        "Comp 4_00047.png",
+//        "Comp 4_00048.png",
+//        "Comp 4_00049.png",
+//        "Comp 4_00050.png",
+//        "Comp 4_00051.png",
+//        "Comp 4_00052.png",
+//        "Comp 4_00053.png",
+//        "Comp 4_00054.png",
+//        "Comp 4_00055.png",
+//        "Comp 4_00056.png",
+//        "Comp 4_00057.png",
+//        "Comp 4_00058.png",
+//        "Comp 4_00059.png",
+//        "Comp 4_00060.png",
+//        "Comp 4_00061.png",
+//        "Comp 4_00062.png",
+//        "Comp 4_00063.png",
+//        "Comp 4_00064.png",
+//        "Comp 4_00065.png",
+//        "Comp 4_00066.png",
+//        "Comp 4_00067.png",
+//        "Comp 4_00068.png",
+//        "Comp 4_00069.png",
+//        "Comp 4_00070.png",
+//        "Comp 4_00071.png",
+//        "Comp 4_00072.png",
+//        "Comp 4_00073.png",
+//        "Comp 4_00074.png",
+//        "Comp 4_00075.png",
+//        "Comp 4_00076.png",
+//        "Comp 4_00077.png",
+//        "Comp 4_00078.png",
+//        "Comp 4_00079.png",
+//        "Comp 4_00080.png",
+//        "Comp 4_00081.png",
+//        "Comp 4_00082.png",
+//        "Comp 4_00083.png",
+//        "Comp 4_00084.png",
+//        "Comp 4_00085.png",
+//        "Comp 4_00086.png",
+//        "Comp 4_00087.png",
+//        "Comp 4_00088.png",
+//        "Comp 4_00089.png"
+//    ]
+//    
+//    
+//    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+//        
+//        if oldState == MKAnnotationViewDragState.None {
+//            println("sup")
+//        }
+//        if newState == MKAnnotationViewDragState.Starting {
+//            println("button come to mamma")
+//            //view!.image = animationFrames as? UIImage
+//            
+//            myAnnotationView = view
+//            
+//            timer = NSTimer.scheduledTimerWithTimeInterval(1/60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
+//            
+//            view.dragState = MKAnnotationViewDragState.Dragging
+//            
+//            
+//            //view.image = UIImage(named: "location_button.png")
+//            //            var i: Int = 0
+//            //            while i < 90{
+//            //                view.image = UIImage(named: images[i] as String)
+//            //                i = i + 1
+//            //            }
+//        }
+//        if newState == MKAnnotationViewDragState.Dragging {
+//            println("omg it'ssssssssssssss working")
+//        }
+//        if newState == MKAnnotationViewDragState.Ending {
+//            timer.invalidate()
+//            x = 0
+//            
+//            
+//            myAnnotationView.image = UIImage(named: "location_button.png")
+//            //myAnnotationView = restore
+//            println("omg it's working")
+//            
+//            view.dragState = MKAnnotationViewDragState.None
+//            
+//            //view.draggable = false
+//            //mapView.removeAnnotation(view.annotation)
+//            //requestUpdate()
+//        }
+//        
+//        if newState == MKAnnotationViewDragState.Canceling {
+//            timer.invalidate()
+//            x = 0
+//            myAnnotationView.image = UIImage(named: "location_button.png")
+//            
+//            view.dragState = MKAnnotationViewDragState.None
+//        }
+//        
+//        
+//    }
+//    
+//    func update(){
+//        if x < 62 {
+//            myAnnotationView.image = UIImage(named: images[x] as String)
+//            x = x + 1
+//        }else {
+//            x = 0
+//            
+//            post(true)
+//            
+//            //setUpVotes()
+//            
+//            timer.invalidate()
+//            
+//            
+//            
+//        }
+//        
+//        println(x)
+//        
+//        
+//    }
     
-    var images: NSMutableArray = [
-        "Comp 4_00000.png",
-        "Comp 4_00001.png",
-        "Comp 4_00002.png",
-        "Comp 4_00003.png",
-        "Comp 4_00004.png",
-        "Comp 4_00005.png",
-        "Comp 4_00006.png",
-        "Comp 4_00007.png",
-        "Comp 4_00008.png",
-        "Comp 4_00009.png",
-        "Comp 4_00010.png",
-        "Comp 4_00011.png",
-        "Comp 4_00012.png",
-        "Comp 4_00013.png",
-        "Comp 4_00014.png",
-        "Comp 4_00015.png",
-        "Comp 4_00016.png",
-        "Comp 4_00017.png",
-        "Comp 4_00018.png",
-        "Comp 4_00019.png",
-        "Comp 4_00020.png",
-        "Comp 4_00021.png",
-        "Comp 4_00022.png",
-        "Comp 4_00023.png",
-        "Comp 4_00024.png",
-        "Comp 4_00025.png",
-        "Comp 4_00026.png",
-        "Comp 4_00027.png",
-        "Comp 4_00028.png",
-        "Comp 4_00029.png",
-        "Comp 4_00030.png",
-        "Comp 4_00031.png",
-        "Comp 4_00032.png",
-        "Comp 4_00033.png",
-        "Comp 4_00034.png",
-        "Comp 4_00035.png",
-        "Comp 4_00036.png",
-        "Comp 4_00037.png",
-        "Comp 4_00038.png",
-        "Comp 4_00039.png",
-        "Comp 4_00040.png",
-        "Comp 4_00041.png",
-        "Comp 4_00042.png",
-        "Comp 4_00043.png",
-        "Comp 4_00044.png",
-        "Comp 4_00045.png",
-        "Comp 4_00046.png",
-        "Comp 4_00047.png",
-        "Comp 4_00048.png",
-        "Comp 4_00049.png",
-        "Comp 4_00050.png",
-        "Comp 4_00051.png",
-        "Comp 4_00052.png",
-        "Comp 4_00053.png",
-        "Comp 4_00054.png",
-        "Comp 4_00055.png",
-        "Comp 4_00056.png",
-        "Comp 4_00057.png",
-        "Comp 4_00058.png",
-        "Comp 4_00059.png",
-        "Comp 4_00060.png",
-        "Comp 4_00061.png",
-        "Comp 4_00062.png",
-        "Comp 4_00063.png",
-        "Comp 4_00064.png",
-        "Comp 4_00065.png",
-        "Comp 4_00066.png",
-        "Comp 4_00067.png",
-        "Comp 4_00068.png",
-        "Comp 4_00069.png",
-        "Comp 4_00070.png",
-        "Comp 4_00071.png",
-        "Comp 4_00072.png",
-        "Comp 4_00073.png",
-        "Comp 4_00074.png",
-        "Comp 4_00075.png",
-        "Comp 4_00076.png",
-        "Comp 4_00077.png",
-        "Comp 4_00078.png",
-        "Comp 4_00079.png",
-        "Comp 4_00080.png",
-        "Comp 4_00081.png",
-        "Comp 4_00082.png",
-        "Comp 4_00083.png",
-        "Comp 4_00084.png",
-        "Comp 4_00085.png",
-        "Comp 4_00086.png",
-        "Comp 4_00087.png",
-        "Comp 4_00088.png",
-        "Comp 4_00089.png"
-    ]
-    
-    
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         
-        //        enum MKAnnotationViewDragState : UInt {
-        //            case None
-        //            case Starting
-        //            case Dragging
-        //            case Canceling
-        //            case Ending
-        //        }'
         
-        //        var animationFrames:UIImage = UIImage()
-        //        animationFrames.animationImages = images
-        //        animationFrames.startAnimating()
+        var userLocation:CLLocation! = locations[0] as CLLocation
         
-        //        var animatedImagesWithImages
-        
-        //restore = view
-        
-        if oldState == MKAnnotationViewDragState.None {
-            println("sup")
-        }
-        if newState == MKAnnotationViewDragState.Starting {
-            println("button come to mamma")
-            //view!.image = animationFrames as? UIImage
+        CLGeocoder().reverseGeocodeLocation(userLocation, completionHandler: { (placemarks, error) -> Void in
             
-            myAnnotationView = view
-            
-            timer = NSTimer.scheduledTimerWithTimeInterval(1/60, target: self, selector: Selector("update"), userInfo: nil, repeats: true)
-            
-            view.dragState = MKAnnotationViewDragState.Dragging
-            
-            
-            //view.image = UIImage(named: "location_button.png")
-            //            var i: Int = 0
-            //            while i < 90{
-            //                view.image = UIImage(named: images[i] as String)
-            //                i = i + 1
-            //            }
-        }
-        if newState == MKAnnotationViewDragState.Dragging {
-            println("omg it'ssssssssssssss working")
-        }
-        if newState == MKAnnotationViewDragState.Ending {
-            timer.invalidate()
-            x = 0
-            
-            
-            myAnnotationView.image = UIImage(named: "location_button.png")
-            //myAnnotationView = restore
-            println("omg it's working")
-            
-            view.dragState = MKAnnotationViewDragState.None
-            
-            //view.draggable = false
-            //mapView.removeAnnotation(view.annotation)
-            //requestUpdate()
-        }
-        
-        if newState == MKAnnotationViewDragState.Canceling {
-            timer.invalidate()
-            x = 0
-            myAnnotationView.image = UIImage(named: "location_button.png")
-            
-            view.dragState = MKAnnotationViewDragState.None
-        }
-        
-        
-    }
-    
-    func update(){
-        if x < 62 {
-            myAnnotationView.image = UIImage(named: images[x] as String)
-            x = x + 1
-        }else {
-            x = 0
-            
-            post(true)
-            
-            //setUpVotes()
-            
-            timer.invalidate()
-            
-            
-            
-        }
-        
-        println(x)
-        
-        
-    }
-    
-    func post(vote: Bool)->Void {
-        
-        println("im making it here at least")
-        
-        let parameters = [
-            "loc": [
-                "type": "Point",
-                "coordinates": [
-                    mapView.userLocation.coordinate.longitude,
-                    mapView.userLocation.coordinate.latitude
-                ]
-            ]
-        ]
-        
-        
-        println("and heree")
-        
-        let URL:NSURL! = NSURL(string: "http://198.199.118.177:9000/api/posts")
-        let mutableURLRequest = NSMutableURLRequest(URL: URL)
-        mutableURLRequest.HTTPMethod = "POST"
-        
-        let us = User.allObjects()
-        let u = us[UInt(0)] as User
-//
-//        println(us[UInt(0)])
-        
-//        println("and here \(user.token)")
-//        println("and hereeee \(user.token)")
-        
-        println("fuck you realm")
-        
-        var JSONSerializationError: NSError? = nil
-        mutableURLRequest.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &JSONSerializationError)
-        mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        mutableURLRequest.setValue("Bearer \(u.token)", forHTTPHeaderField: "Authorization")
-        
-        //print(parameters)
-        
-        Alamofire.request(mutableURLRequest).response {
-            (request, response, data, error) in
-
-            
-            println("Requesttttt: \(request)")
-            println("Responseeeee: \(response)")
-            println("Dataaaa: \(data)")
-            println("Erroreeee: \(error)")
-            
-            if (error == nil){
+            if (error != nil) {
                 
-                self.setUpVotes()
+                println(error)
+                
+            } else {
+                
+                if let p = CLPlacemark(placemark: placemarks?[0] as CLPlacemark) {
+                    
+                    var subThoroughfare:String = ""
+                    
+                    if (p.subThoroughfare != nil) {
+                        
+                        subThoroughfare = p.subThoroughfare
+                        
+                    }
+                    
+                    self.address = "\(subThoroughfare) \(p.thoroughfare), \(p.subLocality), \(p.subAdministrativeArea), \(p.postalCode), \(p.country)"
+                    
+                }
+                
+                
             }
             
-        }
-        
-        //setUpVotes()
+        })
         
     }
+    
+//    func post(vote: Bool)->Void {
+//        
+//        let parameters = [
+//            "loc": [
+//                "type": "Point",
+//                "coordinates": [
+//                    mapView.userLocation.coordinate.longitude,
+//                    mapView.userLocation.coordinate.latitude
+//                ]
+//            ]
+//        ]
+//        
+//        let URL:NSURL! = NSURL(string: "http://198.199.118.177:9000/api/posts")
+//        let mutableURLRequest = NSMutableURLRequest(URL: URL)
+//        mutableURLRequest.HTTPMethod = "POST"
+//        
+//        let us = User.allObjects()
+//        let u = us[UInt(0)] as User
+//        
+//        var JSONSerializationError: NSError? = nil
+//        mutableURLRequest.HTTPBody = NSJSONSerialization.dataWithJSONObject(parameters, options: nil, error: &JSONSerializationError)
+//        mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        mutableURLRequest.setValue("Bearer \(u.token)", forHTTPHeaderField: "Authorization")
+//        
+//        Alamofire.request(mutableURLRequest).response {
+//            (request, response, data, error) in
+//
+//            
+//            println("Requesttttt: \(request)")
+//            println("Responseeeee: \(response)")
+//            println("Dataaaa: \(data)")
+//            println("Erroreeee: \(error)")
+//            
+//            if (error == nil){
+//                
+//                self.setUpVotes()
+//            }
+//            
+//        }
+//        
+//    }
+    
+    func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
+        
+        if (view.reuseIdentifier == "me"){
+            
+            tableView = TagSelectorTableView(mapClass: self)
+            self.mapView.showsUserLocation = false
+        }
+        
+        println(view.reuseIdentifier)
+        
+    }
+    
+    
     
     // MARK: - Bounce Animations
     

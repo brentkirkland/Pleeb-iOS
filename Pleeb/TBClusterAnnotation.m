@@ -13,10 +13,12 @@
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate count:(NSInteger)count
 {
     self = [super init];
+    
     if (self) {
         _coordinate = coordinate;
-        _title = [NSString stringWithFormat:@"%d people in this area", count];
+        _title = [NSString stringWithFormat:@"%lu events in this area", count];
         _count = count;
+        
     }
     return self;
 }

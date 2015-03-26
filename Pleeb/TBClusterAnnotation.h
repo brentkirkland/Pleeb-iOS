@@ -18,6 +18,8 @@
 @property (copy, nonatomic) NSString *subtitle;
 @property (assign, nonatomic) NSInteger count;
 
+
+
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate count:(NSInteger)count;
 
 @end

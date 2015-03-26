@@ -40,7 +40,7 @@ public class LoginOrDrawerController: UIWindow {
     
     public func changeRoot(window: UIWindow!){
         
-        window.rootViewController = getDrawer()
+        window.rootViewController = getDrawer(window)
         
         window.backgroundColor = UIColor.whiteColor()
         window.makeKeyAndVisible()
@@ -58,17 +58,17 @@ public class LoginOrDrawerController: UIWindow {
         
     }
     
-    public func getDrawer() -> DrawerController{
+    public func getDrawer(window: UIWindow!) -> DrawerController{
         
         let leftSideDrawerViewController = ExampleLeftSideDrawerViewController()
         let centerViewController = ExampleCenterTableViewController()
-        let rightSideDrawerViewController = ExampleRightSideDrawerViewController()
+        let rightSideDrawerViewController = TheListiewController()
         
         let navigationController = UINavigationController(rootViewController: centerViewController)
         navigationController.restorationIdentifier = "ExampleCenterNavigationControllerRestorationKey"
         
         let rightSideNavController = UINavigationController(rootViewController: rightSideDrawerViewController)
-        rightSideNavController.restorationIdentifier = "ExampleRightNavigationControllerRestorationKey"
+        rightSideNavController.restorationIdentifier = "TheListiewControllerRestorationKey"
         
         let leftSideNavController = UINavigationController(rootViewController: leftSideDrawerViewController)
         leftSideNavController.restorationIdentifier = "ExampleLeftNavigationControllerRestorationKey"
@@ -78,7 +78,10 @@ public class LoginOrDrawerController: UIWindow {
         drawerController.showsShadows = false
         
         drawerController.restorationIdentifier = "Drawer"
-        drawerController.maximumRightDrawerWidth = 200.0
+        
+        println("the width is: \(window.bounds.size.width)")
+        
+        drawerController.maximumRightDrawerWidth = 375-150
         drawerController.openDrawerGestureModeMask = .All
         drawerController.closeDrawerGestureModeMask = .All
         

@@ -126,7 +126,7 @@ public enum DrawerOpenCenterInteractionMode: Int {
     case NavigationBarOnly
 }
 
-private let DrawerDefaultWidth: CGFloat = 280.0
+private let DrawerDefaultWidth: CGFloat = 320.0
 private let DrawerDefaultAnimationVelocity: CGFloat = 840.0
 
 private let DrawerDefaultFullAnimationDelay: NSTimeInterval = 0.10

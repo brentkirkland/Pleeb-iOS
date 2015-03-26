@@ -11,5 +11,6 @@
 @interface TBClusterAnnotationView : MKAnnotationView
 
 @property (assign, nonatomic) NSUInteger count;
+@property (assign, nonatomic) BOOL isParty;
 
 @end

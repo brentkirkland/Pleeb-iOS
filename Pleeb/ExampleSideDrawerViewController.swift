@@ -19,6 +19,8 @@
 // THE SOFTWARE.
 
 import UIKit
+import Realm
+import Alamofire
 
 enum DrawerSection: Int {
     case ViewSelection
@@ -32,7 +34,7 @@ enum DrawerSection: Int {
 
 class ExampleSideDrawerViewController: ExampleViewController, UITableViewDataSource, UITableViewDelegate {
     var tableView: UITableView!
-    let drawerWidths: [CGFloat] = [160, 200, 240, 280, 320]
+    let drawerWidths: [CGFloat] = [320, 320, 320, 320, 320]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +103,7 @@ class ExampleSideDrawerViewController: ExampleViewController, UITableViewDataSou
         switch indexPath.section {
         case DrawerSection.ViewSelection.rawValue:
             if indexPath.row == 0 {
-                cell.textLabel?.text = "brent@umail.ucsb.edu"
+                cell.textLabel?.text = "Logout"
             } else {
                 cell.textLabel?.text = "(949) 292-6284"
             }
@@ -295,7 +297,56 @@ class ExampleSideDrawerViewController: ExampleViewController, UITableViewDataSou
             let nav = UINavigationController(rootViewController: center)
             
             if indexPath.row % 2 == 0 {
-                self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                
+                let us = User.allObjects()
+                let u = us[UInt(0)] as User
+                
+                //self.evo_drawerController?.setCenterViewController(nav, withCloseAnimation: true, completion: nil)
+                
+                let URL = NSURL(string: "http://198.199.118.177:9000/auth/local")!
+                let mutableURLRequest = NSMutableURLRequest(URL: URL)
+                mutableURLRequest.HTTPMethod = "DELETE"
+                
+                var JSONSerializationError: NSError? = nil
+                mutableURLRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                mutableURLRequest.setValue("Bearer \(u.token)", forHTTPHeaderField: "Authorization")
+                
+                Alamofire.request(mutableURLRequest).response {
+                    (request, response, data, error) -> Void in
+                    
+                    println("Request: \(request)")
+                    println("Response: \(response)")
+                    println("Data: \(data)")
+                    println("Error: \(error)")
+                    
+                    if (error == nil){
+                        
+                        
+                        let realm = RLMRealm.defaultRealm()
+                        realm.beginWriteTransaction()
+                        realm.deleteAllObjects()
+                        realm.commitWriteTransaction()
+                        
+                        //LoginOrDrawerController(win: window)
+                        
+                        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+                        
+                        appDelegate.switchToLogin()
+
+                        
+                        
+                    }else {
+                        
+                        
+                    }
+                    
+                    //TODO notify user if it's already verified
+                    
+                }
+                
+                
+                
+                
             } else {
                 self.evo_drawerController?.setCenterViewController(nav, withFullCloseAnimation: true, completion: nil)
             }

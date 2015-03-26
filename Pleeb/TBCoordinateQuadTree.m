@@ -1,9 +1,7 @@
 //
 //  TBCoordinateQuadTree.m
-//  Pleeb
+//  Livv
 //
-//  Created by Theodore Calmes on 9/27/13.
-//  Copyright (c) 2013 Theodore Calmes. All rights reserved.
 //
 
 #import "TBCoordinateQuadTree.h"
@@ -17,21 +15,34 @@ typedef struct TBHotelInfo {
 
 TBQuadTreeNodeData TBDataFromLine(NSString *line)
 {
-    NSArray *components = [line componentsSeparatedByString:@","];
+    NSArray *components = [line componentsSeparatedByString:@", "];
     double latitude = [components[1] doubleValue];
     double longitude = [components[0] doubleValue];
     
     TBHotelInfo* hotelInfo = malloc(sizeof(TBHotelInfo));
     
-    NSString *hotelName = [components[2] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    hotelInfo->hotelName = malloc(sizeof(char) * hotelName.length + 1);
-    strncpy(hotelInfo->hotelName, [hotelName UTF8String], hotelName.length + 1);
+    NSString *z = [NSString stringWithFormat:@"%@%@", components[2], @"\0"];
     
-    NSString *hotelPhoneNumber = [[components lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *hotelPhoneNumber = [z stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     hotelInfo->hotelPhoneNumber = malloc(sizeof(char) * hotelPhoneNumber.length + 1);
     strncpy(hotelInfo->hotelPhoneNumber, [hotelPhoneNumber UTF8String], hotelPhoneNumber.length + 1);
     
-    return TBQuadTreeNodeDataMake(latitude, longitude, hotelInfo);
+    NSString *hotelName = [[components lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    NSArray *top = [hotelName componentsSeparatedByString:@"-"];
+    
+    NSString *y = [NSString stringWithFormat:@"%@%@", top[0], @"\0"];
+    
+    hotelInfo->hotelName = malloc(sizeof(char) * strlen([y cStringUsingEncoding:NSUTF8StringEncoding])+1);
+    
+    strncpy(hotelInfo->hotelName, [y UTF8String], strlen([y cStringUsingEncoding:NSUTF8StringEncoding])+1);
+    
+    char* topTag = malloc(sizeof(char) * strlen([y cStringUsingEncoding:NSUTF8StringEncoding]) + 1 );
+    strncpy(topTag, [y UTF8String], strlen([y cStringUsingEncoding:NSUTF8StringEncoding]) + 1 );
+    int topWeight = [top[1] intValue];
+    
+    return TBQuadTreeNodeDataMake(latitude, longitude, hotelInfo, topTag, topWeight);
 }
 
 TBBoundingBox TBBoundingBoxForMapRect(MKMapRect mapRect)
@@ -100,16 +111,15 @@ float TBCellSizeForZoomScale(MKZoomScale zoomScale)
         
         int count = [size[0][@"length"] intValue];
         
-        //int count = (int)size[0][@"length"];
-        //int counts = count;
-        NSLog(@"%i@",count);
+        NSLog(@"The count of points is: %i",count);
         
         TBQuadTreeNodeData *dataArray = malloc(sizeof(TBQuadTreeNodeData) * count);
         for (int i = 0; i < count; i++) {
             dataArray[i] = TBDataFromLine(votes[i][@"bump"]);
-            NSLog(@"%@hello",votes[i][@"bump"]);
+            NSLog(@"The quad tree has has been fed with: %@",votes[i][@"bump"]);
             
         }
+        
         
         TBBoundingBox world = TBBoundingBoxMake(19, -166, 72, -53);
         _root = TBQuadTreeBuildWithData(dataArray, count, world, 4);
@@ -134,32 +144,46 @@ float TBCellSizeForZoomScale(MKZoomScale zoomScale)
             __block double totalX = 0;
             __block double totalY = 0;
             __block int count = 0;
+            __block char * toptag = NULL;
+            __block int topweight = 0;
             
             NSMutableArray *names = [[NSMutableArray alloc] init];
             NSMutableArray *phoneNumbers = [[NSMutableArray alloc] init];
             
-            TBQuadTreeGatherDataInRange(self.root, TBBoundingBoxForMapRect(mapRect), ^(TBQuadTreeNodeData data) {
+            
+            TBQuadTreeGatherDataInRange(self.root, TBBoundingBoxForMapRect(mapRect), ^(TBQuadTreeNodeData data, char * tt, int tw) {
                 totalX += data.x;
                 totalY += data.y;
                 count++;
+                toptag = tt;
+                topweight = tw;
                 
                 TBHotelInfo hotelInfo = *(TBHotelInfo *)data.data;
-                [names addObject:[NSString stringWithFormat:@"%s", hotelInfo.hotelName]];
-                [phoneNumbers addObject:[NSString stringWithFormat:@"%s", hotelInfo.hotelPhoneNumber]];
+                
+                [names addObject:[[NSString alloc] initWithCString:hotelInfo.hotelName encoding:NSUTF8StringEncoding]];
+
+                [phoneNumbers addObject:[[NSString alloc] initWithBytes:hotelInfo.hotelPhoneNumber length: strlen(hotelInfo.hotelPhoneNumber) encoding: NSUTF8StringEncoding]];
             });
             
             if (count == 1) {
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(totalX, totalY);
                 TBClusterAnnotation *annotation = [[TBClusterAnnotation alloc] initWithCoordinate:coordinate count:count];
+                
                 annotation.title = [names lastObject];
                 annotation.subtitle = [phoneNumbers lastObject];
                 [clusteredAnnotations addObject:annotation];
             }
             
             if (count > 1) {
+                
+                
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(totalX / count, totalY / count);
                 TBClusterAnnotation *annotation = [[TBClusterAnnotation alloc] initWithCoordinate:coordinate count:count];
+                if(toptag != NULL)
+                    annotation.subtitle = [NSString stringWithFormat: @"Trending: %@", [NSString stringWithUTF8String:toptag]];
                 [clusteredAnnotations addObject:annotation];
+                
+                
             }
         }
     }

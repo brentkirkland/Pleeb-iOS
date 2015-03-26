@@ -10,9 +10,9 @@
 
 #pragma mark - Constructors
 
-TBQuadTreeNodeData TBQuadTreeNodeDataMake(double x, double y, void* data)
+TBQuadTreeNodeData TBQuadTreeNodeDataMake(double x, double y, void* data, char* toptag, int topweight)
 {
-    TBQuadTreeNodeData d; d.x = x; d.y = y; d.data = data;
+    TBQuadTreeNodeData d; d.x = x; d.y = y; d.data = data; d.toptag = toptag; d.topweight = topweight;
     return d;
 }
 
@@ -73,6 +73,8 @@ void TBQuadTreeNodeSubdivide(TBQuadTreeNode* node)
     
     TBBoundingBox southEast = TBBoundingBoxMake(xMid, yMid, box.xf, box.yf);
     node->southEast = TBQuadTreeNodeMake(southEast, node->bucketCapacity);
+    
+    
 }
 
 bool TBQuadTreeNodeInsertData(TBQuadTreeNode* node, TBQuadTreeNodeData data)
@@ -104,20 +106,69 @@ void TBQuadTreeGatherDataInRange(TBQuadTreeNode* node, TBBoundingBox range, TBDa
         return;
     }
     
+    int topweight = 0;
+    char * toptag = NULL;
     for (int i = 0; i < node->count; i++) {
         if (TBBoundingBoxContainsData(range, node->points[i])) {
-            block(node->points[i]);
+            //NSLog(@"i = %d, bucket capacity = %d", i, node->bucketCapacity);
+            if(node->points[i].topweight > topweight) {
+                topweight = node->points[i].topweight;
+                toptag = node->points[i].toptag;
+            }
+            block(node->points[i], toptag, topweight);
+            //NSLog(@"The tag was this: %@, the weight was %d", [NSString stringWithUTF8String: toptag], topweight);
         }
     }
+    /*if(toptag == NULL) {
+        toptag = malloc(sizeof(char));
+        toptag[0] = '\0';
+    }*/
     
     if (node->northWest == NULL) {
         return;
     }
     
+    
+    
     TBQuadTreeGatherDataInRange(node->northWest, range, block);
     TBQuadTreeGatherDataInRange(node->northEast, range, block);
     TBQuadTreeGatherDataInRange(node->southWest, range, block);
     TBQuadTreeGatherDataInRange(node->southEast, range, block);
+    
+    /*int topweight = 0;
+    char* toptag = NULL;
+    if(node->northWest != NULL) {
+        if(node->northWest->points->topweight > topweight) {
+            topweight = node->northWest->points->topweight;
+            toptag = node->northWest->points->toptag;
+        }
+    }
+    if(node->northEast != NULL) {
+        if(node->northEast->points->topweight > topweight) {
+            topweight = node->northEast->points->topweight;
+            toptag = node->northEast->points->toptag;
+        }
+    }
+    if(node->southWest != NULL) {
+        if(node->southWest->points->topweight > topweight) {
+            topweight = node->southWest->points->topweight;
+            toptag = node->southWest->points->toptag;
+        }
+    }
+    if(node->southEast != NULL) {
+        if(node->southEast->points->topweight > topweight) {
+            topweight = node->southEast->points->topweight;
+            toptag = node->southEast->points->toptag;
+        }
+    
+    }
+    if(toptag == NULL) {
+        toptag = malloc(sizeof(char));
+        toptag[0] = '\0';
+    }
+    NSLog(@"The tag was this: %@, the weight was %d", [NSString stringWithUTF8String: toptag], topweight);
+    node->points->toptag = toptag;
+    node->points->topweight = topweight;*/
 }
 
 void TBQuadTreeTraverse(TBQuadTreeNode* node, TBQuadTreeTraverseBlock block)

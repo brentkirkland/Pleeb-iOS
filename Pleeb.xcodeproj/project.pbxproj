@@ -217,10 +217,17 @@
 		C70592ED1AA198290098CF61 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592EC1AA198290098CF61 /* SwiftyJSON.swift */; };
 		C70592FA1AA198830098CF61 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C70592F41AA1984B0098CF61 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C70592FD1AA199020098CF61 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592FC1AA199020098CF61 /* Model.swift */; };
+		C70644151ABE3B06003CD7A4 /* TagButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70644141ABE3B06003CD7A4 /* TagButtonTableViewCell.swift */; };
+		C70644181ABF8964003CD7A4 /* CreateTagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70644171ABF8964003CD7A4 /* CreateTagViewCell.swift */; };
+		C706441A1AC0974B003CD7A4 /* TheListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70644191AC0974B003CD7A4 /* TheListViewController.swift */; };
+		C706441E1AC0D18C003CD7A4 /* TagSelectorTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C706441D1AC0D18C003CD7A4 /* TagSelectorTableView.swift */; };
+		C70A03D41AAE71830075CFF6 /* theivparty.png in Resources */ = {isa = PBXBuildFile; fileRef = C70A03D21AAE71830075CFF6 /* theivparty.png */; };
+		C70A03D51AAE71830075CFF6 /* theivparty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C70A03D31AAE71830075CFF6 /* theivparty@2x.png */; };
 		C73EA01F1AA1BA9900BB7A80 /* SignUpLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */; };
 		C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */; };
 		C7ADAA3B1AAD054000AD7510 /* ilovevista.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA391AAD054000AD7510 /* ilovevista.png */; };
 		C7ADAA3C1AAD054000AD7510 /* ilovevista@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */; };
+		C7B413A91ABE0EE400FD47EF /* TagSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -488,10 +495,17 @@
 		C70592EC1AA198290098CF61 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		C70592EE1AA1984B0098CF61 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		C70592FC1AA199020098CF61 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		C70644141ABE3B06003CD7A4 /* TagButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagButtonTableViewCell.swift; sourceTree = "<group>"; };
+		C70644171ABF8964003CD7A4 /* CreateTagViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTagViewCell.swift; sourceTree = "<group>"; };
+		C70644191AC0974B003CD7A4 /* TheListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheListViewController.swift; sourceTree = "<group>"; };
+		C706441D1AC0D18C003CD7A4 /* TagSelectorTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSelectorTableView.swift; sourceTree = "<group>"; };
+		C70A03D21AAE71830075CFF6 /* theivparty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = theivparty.png; sourceTree = "<group>"; };
+		C70A03D31AAE71830075CFF6 /* theivparty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "theivparty@2x.png"; sourceTree = "<group>"; };
 		C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpLoginViewController.swift; path = "../../Sign-In-Controller/SIgnin/SignUpLoginViewController.swift"; sourceTree = "<group>"; };
 		C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginOrDrawerController.swift; sourceTree = "<group>"; };
 		C7ADAA391AAD054000AD7510 /* ilovevista.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ilovevista.png; sourceTree = "<group>"; };
 		C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilovevista@2x.png"; sourceTree = "<group>"; };
+		C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSelectorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -580,9 +594,14 @@
 			children = (
 				C7058FE01AA193D10098CF61 /* ExampleDrawerVisualStateManager.swift */,
 				C7058FE21AA194200098CF61 /* ExampleViewController.swift */,
+				C70644191AC0974B003CD7A4 /* TheListViewController.swift */,
 				C7058FE41AA1942E0098CF61 /* ExampleCenterTableViewController.swift */,
+				C70644171ABF8964003CD7A4 /* CreateTagViewCell.swift */,
 				C7058FE61AA1944C0098CF61 /* ExampleSideDrawerViewController.swift */,
+				C706441D1AC0D18C003CD7A4 /* TagSelectorTableView.swift */,
+				C70644141ABE3B06003CD7A4 /* TagButtonTableViewCell.swift */,
 				C7058FE81AA1946E0098CF61 /* ExampleLeftSideDrawerViewController.swift */,
+				C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */,
 				C7058FEA1AA1947F0098CF61 /* ExampleRightSideDrawerViewController.swift */,
 				C7058FEC1AA194920098CF61 /* TableViewCell.swift */,
 				C7058FEE1AA194A70098CF61 /* SideDrawerTableViewCell.swift */,
@@ -628,6 +647,8 @@
 		C70591791AA1979A0098CF61 /* Support Images */ = {
 			isa = PBXGroup;
 			children = (
+				C70A03D21AAE71830075CFF6 /* theivparty.png */,
+				C70A03D31AAE71830075CFF6 /* theivparty@2x.png */,
 				C705917A1AA1979A0098CF61 /* Comp 4_00000.png */,
 				C705917B1AA1979A0098CF61 /* Comp 4_00000@2x.png */,
 				C705917C1AA1979A0098CF61 /* Comp 4_00001.png */,
@@ -993,6 +1014,7 @@
 				C70592E21AA1979A0098CF61 /* Comp 4_00089.png in Resources */,
 				C705924C1AA1979A0098CF61 /* Comp 4_00014.png in Resources */,
 				C70592951AA1979A0098CF61 /* Comp 4_00050@2x.png in Resources */,
+				C70A03D51AAE71830075CFF6 /* theivparty@2x.png in Resources */,
 				C70592CB1AA1979A0098CF61 /* Comp 4_00077@2x.png in Resources */,
 				C70592BE1AA1979A0098CF61 /* Comp 4_00071.png in Resources */,
 				C70592811AA1979A0098CF61 /* Comp 4_00040@2x.png in Resources */,
@@ -1103,6 +1125,7 @@
 				C70592A21AA1979A0098CF61 /* Comp 4_00057.png in Resources */,
 				C705928B1AA1979A0098CF61 /* Comp 4_00045@2x.png in Resources */,
 				C705923B1AA1979A0098CF61 /* Comp 4_00005@2x.png in Resources */,
+				C70A03D41AAE71830075CFF6 /* theivparty.png in Resources */,
 				C705925E1AA1979A0098CF61 /* Comp 4_00023.png in Resources */,
 				C70592BC1AA1979A0098CF61 /* Comp 4_00070.png in Resources */,
 				C70592391AA1979A0098CF61 /* Comp 4_00004@2x.png in Resources */,
@@ -1150,7 +1173,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C70644181ABF8964003CD7A4 /* CreateTagViewCell.swift in Sources */,
 				C7058FC01AA1936F0098CF61 /* AppDelegate.swift in Sources */,
+				C706441A1AC0974B003CD7A4 /* TheListViewController.swift in Sources */,
 				C7058FF71AA1952A0098CF61 /* DrawerBarButtonItem.swift in Sources */,
 				C7058FEF1AA194A70098CF61 /* SideDrawerTableViewCell.swift in Sources */,
 				C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */,
@@ -1159,8 +1184,10 @@
 				C70590071AA196A60098CF61 /* TBClusterAnnotation.m in Sources */,
 				C7058FE71AA1944C0098CF61 /* ExampleSideDrawerViewController.swift in Sources */,
 				C70592EB1AA1980C0098CF61 /* RLMSupport.swift in Sources */,
+				C7B413A91ABE0EE400FD47EF /* TagSelectorViewController.swift in Sources */,
 				C705900A1AA196C70098CF61 /* TBClusterAnnotationView.m in Sources */,
 				C7058FFB1AA1954B0098CF61 /* DrawerVisualState.swift in Sources */,
+				C70644151ABE3B06003CD7A4 /* TagButtonTableViewCell.swift in Sources */,
 				C7058FF91AA1953A0098CF61 /* DrawerController.swift in Sources */,
 				C70590011AA195DC0098CF61 /* TBQuadTree.m in Sources */,
 				C70592ED1AA198290098CF61 /* SwiftyJSON.swift in Sources */,
@@ -1173,6 +1200,7 @@
 				C7058FE31AA194200098CF61 /* ExampleViewController.swift in Sources */,
 				C70592FD1AA199020098CF61 /* Model.swift in Sources */,
 				C7058FF51AA194FF0098CF61 /* AnimatedMenuButton.swift in Sources */,
+				C706441E1AC0D18C003CD7A4 /* TagSelectorTableView.swift in Sources */,
 				C70590041AA1967C0098CF61 /* TBCoordinateQuadTree.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1301,6 +1329,7 @@
 					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/build/ios",
 				);
 				INFOPLIST_FILE = Pleeb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1321,6 +1350,7 @@
 					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/build/ios",
 				);
 				INFOPLIST_FILE = Pleeb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

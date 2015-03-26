@@ -13,8 +13,10 @@ typedef struct TBQuadTreeNodeData {
     double x;
     double y;
     void* data;
+    char * toptag;
+    int topweight;
 } TBQuadTreeNodeData;
-TBQuadTreeNodeData TBQuadTreeNodeDataMake(double x, double y, void* data);
+TBQuadTreeNodeData TBQuadTreeNodeDataMake(double x, double y, void* data, char* toptag, int topweight);
 
 typedef struct TBBoundingBox {
     double x0; double y0;
@@ -31,6 +33,7 @@ typedef struct quadTreeNode {
     int bucketCapacity;
     TBQuadTreeNodeData *points;
     int count;
+    
 } TBQuadTreeNode;
 TBQuadTreeNode* TBQuadTreeNodeMake(TBBoundingBox boundary, int bucketCapacity);
 
@@ -42,7 +45,7 @@ bool TBBoundingBoxIntersectsBoundingBox(TBBoundingBox b1, TBBoundingBox b2);
 typedef void(^TBQuadTreeTraverseBlock)(TBQuadTreeNode* currentNode);
 void TBQuadTreeTraverse(TBQuadTreeNode* node, TBQuadTreeTraverseBlock block);
 
-typedef void(^TBDataReturnBlock)(TBQuadTreeNodeData data);
+typedef void(^TBDataReturnBlock)(TBQuadTreeNodeData data, char * tt, int tw);
 void TBQuadTreeGatherDataInRange(TBQuadTreeNode* node, TBBoundingBox range, TBDataReturnBlock block);
 
 bool TBQuadTreeNodeInsertData(TBQuadTreeNode* node, TBQuadTreeNodeData data);

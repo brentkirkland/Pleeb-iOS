@@ -34,10 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow!
     
+    
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
-        
-        
+
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
@@ -56,6 +56,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    
+    func switchToLogin() -> Void {
+        
+        LoginOrDrawerController(win: window)
+        
+    }
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         return true
@@ -75,11 +81,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return self.window.rootViewController
             } else if key == "ExampleCenterNavigationControllerRestorationKey" {
                 return (self.window.rootViewController as DrawerController).centerViewController
-            } else if key == "ExampleRightNavigationControllerRestorationKey" {
+            } else if key == "TheListiewControllerRestorationKey" {
                 return (self.window.rootViewController as DrawerController).rightDrawerViewController
             } else if key == "ExampleLeftNavigationControllerRestorationKey" {
                 return (self.window.rootViewController as DrawerController).leftDrawerViewController
-            } else if key == "ExampleLeftSideDrawerController" {
+            } else if key == "ExampleRightSideDrawerController" {
                 if let leftVC = (self.window.rootViewController as? DrawerController)?.leftDrawerViewController {
                     if leftVC.isKindOfClass(UINavigationController) {
                         return (leftVC as UINavigationController).topViewController
@@ -87,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return leftVC
                     }
                 }
-            } else if key == "ExampleRightSideDrawerController" {
+            } else if key == "TheListiewController" {
                 if let rightVC = (self.window.rootViewController as? DrawerController)?.rightDrawerViewController {
                     if rightVC.isKindOfClass(UINavigationController) {
                         return (rightVC as UINavigationController).topViewController
