@@ -1,10 +1,9 @@
 //
 //  CreateTagViewCell.swift
-//  Pleeb
+//  LIVV
 //
 //  Created by Brent Kirkland on 3/22/15.
-//  Copyright (c) 2015 Brent Kirkland. All rights reserved.
-//
+
 
 
 import UIKit
@@ -14,7 +13,7 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
     
     var newTag: UITextField! = UITextField()
     var background: UIView! = UIView()
-    var mapClass: ExampleCenterTableViewController!
+    var mapClass: MapViewController!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,7 +24,7 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
         super.init(coder: aDecoder)
         
     }
-    init(style: UITableViewCellStyle, reuseIdentifier: String?, mapClass: ExampleCenterTableViewController) {
+    init(style: UITableViewCellStyle, reuseIdentifier: String?, mapClass: MapViewController) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.mapClass = mapClass
         
@@ -57,6 +56,7 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
         backgroundColor = UIColor.clearColor()
         
         background.backgroundColor = UIColor(red: 41/255, green: 171/255, blue: 226/255, alpha: 1.0)
+        background.layer.cornerRadius = 2
         fitToSize(22)
     }
     
@@ -78,10 +78,32 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        println("check")
-        mapClass.post(newTag.text)
-        mapClass.tableView.endEditing(true)
-        return true
+        
+        let users = User.allObjects()
+        var user = users[UInt(0)] as User
+        
+        if user.username == "" {
+            
+            mapClass.tableView.hidden = true
+            var createView: CreateUsernameView! = CreateUsernameView(frame: CGRectMake(50, -170, mapClass.view.frame.size.width-100, 170))
+            mapClass.view.addSubview(createView)
+            createView.openWindow(mapClass, tag: newTag.text)
+            return true
+            
+        }
+        if newTag.text != "" {
+            println("check")
+            mapClass.post(newTag.text)
+            mapClass.tableView.endEditing(true)
+            return true
+            
+        }
+        else {
+            mapClass.tableView.endEditing(true)
+            mapClass.tableView.closeWindow(mapClass.tableView)
+            return true
+        }
+        
         
     }
 

@@ -1,6 +1,6 @@
 //
 //  TagSelectorViewController.swift
-//  Pleeb
+//  Livv
 //
 //  Created by Brent Kirkland on 3/21/15.
 //  Copyright (c) 2015 Brent Kirkland. All rights reserved.
@@ -49,7 +49,7 @@ class TagSelectorViewController: ExampleViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "the List"
+        self.title = "Leader Board"
         let font = UIFont(name: "HelveticaNeue-Light", size: 22)
         if let font = font {
             self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName : font, NSForegroundColorAttributeName : UIColor.whiteColor()]
@@ -103,7 +103,7 @@ class TagSelectorViewController: ExampleViewController, UITableViewDelegate, UIT
         }
         
         //cell.tagName.text = babe[indexPath.row] as String!
-        cell.fitToSize(x)
+        //cell.fitToSize(x, )
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
 //        println(cell.frame)

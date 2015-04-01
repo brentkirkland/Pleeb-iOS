@@ -1,12 +1,12 @@
 //
 //  TBCoordinateQuadTree.m
-//  Livv
+//  LIVV
 //
 //
 
 #import "TBCoordinateQuadTree.h"
 #import "TBClusterAnnotation.h"
-#import "Pleeb-swift.h"
+#import "Livv-swift.h"
 
 typedef struct TBHotelInfo {
     char* hotelName;
@@ -15,7 +15,8 @@ typedef struct TBHotelInfo {
 
 TBQuadTreeNodeData TBDataFromLine(NSString *line)
 {
-    NSArray *components = [line componentsSeparatedByString:@", "];
+    NSArray *components = [line componentsSeparatedByString:@"^.#/"];
+    
     double latitude = [components[1] doubleValue];
     double longitude = [components[0] doubleValue];
     
@@ -30,7 +31,7 @@ TBQuadTreeNodeData TBDataFromLine(NSString *line)
     
     NSString *hotelName = [[components lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    NSArray *top = [hotelName componentsSeparatedByString:@"-"];
+    NSArray *top = [hotelName componentsSeparatedByString:@"/#.^"];
     
     NSString *y = [NSString stringWithFormat:@"%@%@", top[0], @"\0"];
     
@@ -161,13 +162,15 @@ float TBCellSizeForZoomScale(MKZoomScale zoomScale)
                 TBHotelInfo hotelInfo = *(TBHotelInfo *)data.data;
                 
                 [names addObject:[[NSString alloc] initWithCString:hotelInfo.hotelName encoding:NSUTF8StringEncoding]];
+                
+                NSLog(@"The tag name is %s, the count %d, the topweight is %d", hotelInfo.hotelName, count, topweight);
 
                 [phoneNumbers addObject:[[NSString alloc] initWithBytes:hotelInfo.hotelPhoneNumber length: strlen(hotelInfo.hotelPhoneNumber) encoding: NSUTF8StringEncoding]];
             });
             
             if (count == 1) {
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(totalX, totalY);
-                TBClusterAnnotation *annotation = [[TBClusterAnnotation alloc] initWithCoordinate:coordinate count:count];
+                TBClusterAnnotation *annotation = [[TBClusterAnnotation alloc] initWithCoordinate:coordinate count:count weight:topweight];
                 
                 annotation.title = [names lastObject];
                 annotation.subtitle = [phoneNumbers lastObject];
@@ -176,9 +179,8 @@ float TBCellSizeForZoomScale(MKZoomScale zoomScale)
             
             if (count > 1) {
                 
-                
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(totalX / count, totalY / count);
-                TBClusterAnnotation *annotation = [[TBClusterAnnotation alloc] initWithCoordinate:coordinate count:count];
+                TBClusterAnnotation *annotation = [[TBClusterAnnotation alloc] initWithCoordinate:coordinate count:count weight: topweight];
                 if(toptag != NULL)
                     annotation.subtitle = [NSString stringWithFormat: @"Trending: %@", [NSString stringWithUTF8String:toptag]];
                 [clusteredAnnotations addObject:annotation];

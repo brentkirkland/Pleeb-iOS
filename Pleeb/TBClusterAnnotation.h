@@ -1,10 +1,6 @@
 //
 //  TBClusterAnnotation.h
-//  Pleeb
-//
-//  Created by Theodore Calmes on 10/8/13.
-//  Copyright (c) 2013 Theodore Calmes. All rights reserved.
-//
+//  LIVV
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
@@ -17,9 +13,8 @@
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *subtitle;
 @property (assign, nonatomic) NSInteger count;
+@property (assign, nonatomic) NSInteger weight;
 
-
-
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate count:(NSInteger)count;
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate count:(NSInteger)count weight:(NSInteger)weight;
 
 @end

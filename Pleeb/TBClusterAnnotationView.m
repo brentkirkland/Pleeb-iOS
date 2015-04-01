@@ -1,10 +1,6 @@
 //
 //  TBClusterAnnotationView.m
-//  Pleeb
-//
-//  Created by Theodore Calmes on 10/4/13.
-//  Copyright (c) 2013 Theodore Calmes. All rights reserved.
-//
+//  LIVV
 
 #import "TBClusterAnnotationView.h"
 
@@ -30,9 +26,10 @@ CGFloat TBScaledValueForValue(CGFloat value)
     return 1.0 / (1.0 + expf(-1 * TBScaleFactorAlpha * powf(value, TBScaleFactorBeta)));
 }
 
-@interface TBClusterAnnotationView ()
-@property (strong, nonatomic) UILabel *countLabel;
-@end
+//@interface TBClusterAnnotationView
+//
+//
+//@end
 
 @implementation TBClusterAnnotationView
 
@@ -40,10 +37,19 @@ CGFloat TBScaledValueForValue(CGFloat value)
 {
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        TBClusterAnnotation *x = (TBClusterAnnotation *)annotation;
         self.backgroundColor = [UIColor clearColor];
         [self setupLabel];
-        [self setCount:1];
-        
+        _weight = x.weight;
+        if (x.count == 1) {
+            _isParty = YES;
+        }else {
+            _isParty = NO;
+        }
+        [self setCount:x.count];
+    
+        //if (TBClusterAnnotation)annotation
     }
     return self;
 }
@@ -66,9 +72,8 @@ CGFloat TBScaledValueForValue(CGFloat value)
 - (void)setCount:(NSUInteger)count
 {
     _count = count;
-    if (_count == 1) { _isParty = YES; } else { _isParty = NO; }
     
-    CGRect newBounds = CGRectMake(0, 0, roundf(55 * TBScaledValueForValue(count)), roundf(55 * TBScaledValueForValue(count)));
+    CGRect newBounds = CGRectMake(0, 0, roundf(40 * TBScaledValueForValue(_weight*10 + _count)), roundf(40 * TBScaledValueForValue(_weight*10 + _count)));
     self.frame = TBCenterRect(newBounds, self.center);
     
     CGRect newLabelBounds = CGRectMake(0, 0, newBounds.size.width / 1.3, newBounds.size.height / 1.3);
@@ -77,7 +82,6 @@ CGFloat TBScaledValueForValue(CGFloat value)
     if (_isParty) {
         
         self.countLabel.text = @"";
-        NSLog(@"%lu", count);
         
     }else{
         self.countLabel.text = [@(_count) stringValue];
@@ -102,11 +106,16 @@ CGFloat TBScaledValueForValue(CGFloat value)
         innerCircleFillColor = [UIColor colorWithRed:(26.0 / 255.0) green:(26.0 / 255.0) blue:(26.0 / 255.0) alpha:0.8];
         outerCircleStrokeColor = [UIColor colorWithWhite:1 alpha: 1.0];
         innerCircleStrokeColor = [UIColor colorWithWhite:1 alpha: 1.0];}
-    
+
     CGRect circleFrame = CGRectInset(rect, 4, 4);
     
+    NSInteger x  = _weight;
+    if (x > 20) {
+        x = 20;
+    }
+    
     [outerCircleStrokeColor setStroke];
-    CGContextSetLineWidth(context, 8.0);
+    CGContextSetLineWidth(context, (8*x)/20);
     CGContextStrokeEllipseInRect(context, circleFrame);
     
     [innerCircleStrokeColor setStroke];

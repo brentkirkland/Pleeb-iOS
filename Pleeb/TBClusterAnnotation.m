@@ -1,16 +1,12 @@
 //
 //  TBClusterAnnotation.m
-//  TBAnnotationClustering
-//
-//  Created by Theodore Calmes on 10/8/13.
-//  Copyright (c) 2013 Theodore Calmes. All rights reserved.
-//
+//  LIVV
 
 #import "TBClusterAnnotation.h"
 
 @implementation TBClusterAnnotation
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate count:(NSInteger)count
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate count:(NSInteger)count weight:(NSInteger)weight
 {
     self = [super init];
     
@@ -18,7 +14,7 @@
         _coordinate = coordinate;
         _title = [NSString stringWithFormat:@"%lu events in this area", count];
         _count = count;
-        
+        _weight = weight;
     }
     return self;
 }

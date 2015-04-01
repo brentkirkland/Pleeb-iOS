@@ -20,9 +20,11 @@ class SizeofPoints: RLMObject {
 
 class User: RLMObject {
     
-    //dynamic var email: String = ""
     dynamic var phone: String = "(949) 292-6284"
     dynamic var token: String = ""
+    dynamic var username: String = ""
+    dynamic var lastTag: String = ""
+    dynamic var complete: Bool = false
     
 }
 
@@ -36,5 +38,6 @@ class Tag: RLMObject {
     
     dynamic var name: String!
     dynamic var weight: Int = 0
+    dynamic var userSelectedTag: Int = 0
     
 }

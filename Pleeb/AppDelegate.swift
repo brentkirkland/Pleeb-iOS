@@ -29,6 +29,8 @@
 import UIKit
 import Realm
 
+let globalURL: String! = "http://livv.net"
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -37,7 +39,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         
-
+        // Inside your application(application:didFinishLaunchingWithOptions:)
+        
+        // Notice setSchemaVersion is set to 1, this is always set manually. It must be
+        // higher than the previous version (oldSchemaVersion) or an RLMException is thrown
+        RLMRealm.setSchemaVersion(1, forRealmAtPath: RLMRealm.defaultRealmPath(),
+            withMigrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if oldSchemaVersion < 1 {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
+        // now that we have called `setSchemaVersion:withMigrationBlock:`, opening an outdated
+        // Realm will automatically perform the migration and opening the Realm will succeed
+        // i.e. RLMRealm.defaultRealm()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
@@ -48,8 +65,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
             LoginOrDrawerController(win: window)
         
-        }else {
+        }
+        else if (!(user[0]as User).complete) {
             
+            LoginOrDrawerController(win: window)
+        }
+        else {
+          
             LoginOrDrawerController(window: self.window)
             
         }
@@ -63,6 +85,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        
         
         return true
     }
@@ -78,14 +102,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
         if let key = identifierComponents.last as? String {
             if key == "Drawer" {
-                return self.window.rootViewController
-            } else if key == "ExampleCenterNavigationControllerRestorationKey" {
+                return self.window.rootViewController as SignUpLoginViewController
+            } else if key == "MapViewNavigationControllerRestorationKey" {
                 return (self.window.rootViewController as DrawerController).centerViewController
-            } else if key == "TheListiewControllerRestorationKey" {
+            } else if key == "TheListiewRightControllerRestorationKey" {
                 return (self.window.rootViewController as DrawerController).rightDrawerViewController
-            } else if key == "ExampleLeftNavigationControllerRestorationKey" {
+            } else if key == "SettingsViewLeftControllerRestorationKey" {
                 return (self.window.rootViewController as DrawerController).leftDrawerViewController
-            } else if key == "ExampleRightSideDrawerController" {
+            } else if key == "SettingsViewController" {
                 if let leftVC = (self.window.rootViewController as? DrawerController)?.leftDrawerViewController {
                     if leftVC.isKindOfClass(UINavigationController) {
                         return (leftVC as UINavigationController).topViewController
@@ -101,6 +125,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         return rightVC
                     }
                 }
+            } else if key == "Drawer" {
+                return self.window.rootViewController
             }
         }
         

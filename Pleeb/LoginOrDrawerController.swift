@@ -1,6 +1,6 @@
 //
 //  LoginOrDrawerController.swift
-//  Pleeb
+//  LIVV
 //
 //  Created by Brent Kirkland on 2/28/15.
 //  Copyright (c) 2015 Brent Kirkland. All rights reserved.
@@ -60,18 +60,18 @@ public class LoginOrDrawerController: UIWindow {
     
     public func getDrawer(window: UIWindow!) -> DrawerController{
         
-        let leftSideDrawerViewController = ExampleLeftSideDrawerViewController()
-        let centerViewController = ExampleCenterTableViewController()
+        let leftSideDrawerViewController = SettingsViewController()
+        let centerViewController = MapViewController()
         let rightSideDrawerViewController = TheListiewController()
         
         let navigationController = UINavigationController(rootViewController: centerViewController)
-        navigationController.restorationIdentifier = "ExampleCenterNavigationControllerRestorationKey"
+        navigationController.restorationIdentifier = "MapViewCenterControllerRestorationKey"
         
         let rightSideNavController = UINavigationController(rootViewController: rightSideDrawerViewController)
-        rightSideNavController.restorationIdentifier = "TheListiewControllerRestorationKey"
+        rightSideNavController.restorationIdentifier = "TheListiewRightControllerRestorationKey"
         
         let leftSideNavController = UINavigationController(rootViewController: leftSideDrawerViewController)
-        leftSideNavController.restorationIdentifier = "ExampleLeftNavigationControllerRestorationKey"
+        leftSideNavController.restorationIdentifier = "SettingsViewLeftControllerRestorationKey"
         
         var drawerController: DrawerController! = DrawerController(centerViewController: navigationController, leftDrawerViewController: leftSideNavController, rightDrawerViewController: rightSideNavController)
         
@@ -82,6 +82,7 @@ public class LoginOrDrawerController: UIWindow {
         println("the width is: \(window.bounds.size.width)")
         
         drawerController.maximumRightDrawerWidth = 375-150
+        drawerController.maximumLeftDrawerWidth = 375-150
         drawerController.openDrawerGestureModeMask = .All
         drawerController.closeDrawerGestureModeMask = .All
         

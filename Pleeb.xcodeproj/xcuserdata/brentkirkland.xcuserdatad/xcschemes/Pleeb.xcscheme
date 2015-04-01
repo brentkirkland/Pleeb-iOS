@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C7058FB91AA1936F0098CF61"
-               BuildableName = "Pleeb.app"
-               BlueprintName = "Pleeb"
+               BuildableName = "Livv.app"
+               BlueprintName = "Livv"
                ReferencedContainer = "container:Pleeb.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7058FB91AA1936F0098CF61"
-            BuildableName = "Pleeb.app"
-            BlueprintName = "Pleeb"
+            BuildableName = "Livv.app"
+            BlueprintName = "Livv"
             ReferencedContainer = "container:Pleeb.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -72,12 +72,13 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7058FB91AA1936F0098CF61"
-            BuildableName = "Pleeb.app"
-            BlueprintName = "Pleeb"
+            BuildableName = "Livv.app"
+            BlueprintName = "Livv"
             ReferencedContainer = "container:Pleeb.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -90,12 +91,13 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C7058FB91AA1936F0098CF61"
-            BuildableName = "Pleeb.app"
-            BlueprintName = "Pleeb"
+            BuildableName = "Livv.app"
+            BlueprintName = "Livv"
             ReferencedContainer = "container:Pleeb.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -105,6 +107,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
+      customArchiveName = "Livv"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
