@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pleeb/TagSelectorView.swift"
-            timestampString = "448614704.799113"
+            timestampString = "449817550.522046"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
             landmarkName = "TagSelectorView"
             landmarkType = "3">
          </BreakpointContent>
@@ -358,11 +358,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Sign-In-Controller/SIgnin/SignUpLoginViewController.swift"
-            timestampString = "449546771.393063"
+            timestampString = "449568319.496226"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1309"
-            endingLineNumber = "1309"
+            startingLineNumber = "1310"
+            endingLineNumber = "1310"
             landmarkName = "buildAgreeTextViewFromString(_:)"
             landmarkType = "5">
          </BreakpointContent>

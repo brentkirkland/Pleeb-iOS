@@ -163,7 +163,7 @@ float TBCellSizeForZoomScale(MKZoomScale zoomScale)
                 
                 [names addObject:[[NSString alloc] initWithCString:hotelInfo.hotelName encoding:NSUTF8StringEncoding]];
                 
-                NSLog(@"The tag name is %s, the count %d, the topweight is %d", hotelInfo.hotelName, count, topweight);
+                NSLog(@"The tag name is %s, the address is %s, the count %d, the topweight is %d", hotelInfo.hotelName, hotelInfo.hotelPhoneNumber, count, topweight);
 
                 [phoneNumbers addObject:[[NSString alloc] initWithBytes:hotelInfo.hotelPhoneNumber length: strlen(hotelInfo.hotelPhoneNumber) encoding: NSUTF8StringEncoding]];
             });

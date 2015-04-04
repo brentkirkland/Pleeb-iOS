@@ -6,7 +6,7 @@
 
 
 
-import UIKit
+import Foundation
 import Alamofire
 
 class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
@@ -48,6 +48,8 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
         newTag.sizeToFit()
         newTag.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
         newTag.returnKeyType = UIReturnKeyType.Done
+        newTag.keyboardType = UIKeyboardType.Twitter
+        //newTag.keyboardAppearance = UIKeyboardA
         newTag.delegate = self
         
         selectionStyle = UITableViewCellSelectionStyle.None
@@ -77,6 +79,42 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
         fitToSize(22)
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        
+        println("Started editing")
+
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField == newTag{
+
+            //println(textField.text)
+            
+            println("here inside")
+            
+            if textField.text.utf16Count == 2{
+            
+            if (textField.text as NSString).substringToIndex(1) == "@" {
+                //fitToSize(22)
+                println("Check mate")
+                println((textField.text as NSString) + string)
+                println("the range is \(range)")
+                
+                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+                dispatch_async(dispatch_get_global_queue(priority, 0)) {
+                    self.mapClass.tableView.future = true
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.mapClass.tableView.reloadData()
+                    }
+                }
+                
+                
+                }
+            }
+        }
+        return true
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
         let users = User.allObjects()
@@ -88,17 +126,20 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
             var createView: CreateUsernameView! = CreateUsernameView(frame: CGRectMake(50, -170, mapClass.view.frame.size.width-100, 170))
             mapClass.view.addSubview(createView)
             createView.openWindow(mapClass, tag: newTag.text)
+            println("here")
             return true
             
         }
-        if newTag.text != "" {
+        if newTag.text != "" && newTag.text != "@"{
             println("check")
             mapClass.post(newTag.text)
             mapClass.tableView.endEditing(true)
+            println("heree nikka")
             return true
             
         }
         else {
+            println("hereee")
             mapClass.tableView.endEditing(true)
             mapClass.tableView.closeWindow(mapClass.tableView)
             return true

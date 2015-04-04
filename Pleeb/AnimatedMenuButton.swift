@@ -40,7 +40,7 @@ public class AnimatedMenuButton : UIButton {
             layer.strokeColor = UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1.0).CGColor
             layer.lineWidth = 4
             layer.miterLimit = 2
-            layer.lineCap = kCALineCapSquare
+            layer.lineCap = kCALineCapRound
             layer.masksToBounds = true
             
             let strokingPath = CGPathCreateCopyByStrokingPath(layer.path, nil, 4, kCGLineCapSquare, kCGLineJoinMiter, 4)

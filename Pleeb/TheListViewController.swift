@@ -69,7 +69,7 @@ class TheListiewController: ExampleViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        println("View did load")
         
         let users = User.allObjects()
         let user = users[UInt(0)] as User
@@ -110,7 +110,7 @@ class TheListiewController: ExampleViewController, UITableViewDelegate, UITableV
         self.tableView.dataSource = self
         
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        self.tableView.rowHeight = 35
+        self.tableView.rowHeight = 50
         self.tableView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
         self.tableView.separatorStyle = .None
         self.view.addSubview(tableView)

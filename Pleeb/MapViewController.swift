@@ -32,6 +32,10 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
     
     var intialLocationLoad = false
     
+    //search bar
+    
+    var searchBar: SearchBarView!
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -49,6 +53,9 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         
         lastLocation = CLLocation(latitude: 45, longitude: -45)
         
+        
+
+        //var attributionLabel: UILabel = mapView.subviews.
         
         // INITILIZE LOCATION MANAGER
         
@@ -88,18 +95,21 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         button.titleLabel?.font = UIFont(name: "HelveticaNeue-UltraLight", size: 30)
         button.setTitle("L I V V", forState: UIControlState.Normal)
         button.setTitleColor(UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1.0), forState: UIControlState.Normal)
+        
+        self.searchBar = SearchBarView(frame: CGRectMake(50, 5, self.view.frame.width - 100, 35))
+        self.navigationController?.navigationBar.addSubview(self.searchBar)
+        //button.hidden = true
+        searchBar.hidden = true
+        
         button.addTarget(self, action: Selector("clickOnButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
-        
-        
-        
-        
         
     }
     
     func clickOnButton(sender: UIButton!)
     {
         if tableView != nil {
+
             button.enabled = false
             tableView.endEditing(true)
             //tableView.userInteractionEnabled = false
@@ -361,7 +371,10 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                     
                     dispatch_async(dispatch_get_main_queue()) {
                         
-                        self.tableView = TagSelectorTableView(mapClass: self)
+                        
+                        
+                        //self.tableView = TagSelectorTableView(mapClass: self)
+                        self.view.addSubview(TagSelectorView(frame: CGRectMake(0, 72, self.view.frame.width, self.view.frame.height - 72)))
                         self.mapView.showsUserLocation = false
                         
                     }
@@ -527,14 +540,70 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         println("Center did disappear")
     }
     
+    func setupLeftMenuAgain() {
+        
+        
+        
+        var button: UIButton! = UIButton(frame: CGRectMake(0,0,69/2,30))
+        button.setImage(UIImage(named: "future.png"), forState: .Normal)
+        button.addTarget(self, action: "leftDrawerButtonPress:", forControlEvents: .TouchUpInside)
+        
+        var item = UIBarButtonItem(customView: button)
+        
+        //let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
+        self.navigationItem.setLeftBarButtonItem(item, animated: true)
+        
+        
+    }
+    
     func setupLeftMenuButton() {
-        let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
-        self.navigationItem.setLeftBarButtonItem(leftDrawerButton, animated: true)
+        
+
+        
+        var button: UIButton! = UIButton(frame: CGRectMake(0,0,20,20))
+        button.setImage(UIImage(named: "left.png"), forState: .Normal)
+        button.addTarget(self, action: "leftDrawerButtonPress:", forControlEvents: .TouchUpInside)
+        
+        var item = UIBarButtonItem(customView: button)
+        
+        
+//        var button2: UIButton! = UIButton(frame: CGRectMake(30,0,20,20))
+//        button2.setImage(UIImage(named: "searchIcon.png"), forState: .Normal)
+//        //button2.addTarget(self, action: "leftDrawerButtonPress:", forControlEvents: .TouchUpInside)
+//        var item2 = UIBarButtonItem(customView: button2)
+        
+        //let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
+        self.navigationItem.setLeftBarButtonItem(item, animated: true)
+        
+
+    }
+    
+    
+    func setupRightMenuAgain(){
+        
+        println("here at least")
+        var button1: UIButton! = UIButton(frame: CGRectMake(0,0,30,30))
+        button1.setImage(UIImage(named: "accept.png"), forState: .Normal)
+        button1.addTarget(self, action: "leftDrawerButtonPress:", forControlEvents: .TouchUpInside)
+        var item1 = UIBarButtonItem(customView: button1)
+        var button2: UIButton! = UIButton(frame: CGRectMake(0,0,30,30))
+        button2.setImage(UIImage(named: "deny.png"), forState: .Normal)
+        button2.addTarget(self, action: "leftDrawerButtonPress:", forControlEvents: .TouchUpInside)
+        var item2 = UIBarButtonItem(customView: button2)
+        
+        //let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
+        //self.navigationItem.setLeftBarButtonItem(item, animated: true)
+        self.navigationItem.setRightBarButtonItems([item1, item2], animated: true)
+        
     }
     
     func setupRightMenuButton() {
-        let rightDrawerButton = DrawerBarButtonItem(target: self, action: "rightDrawerButtonPress:")
-        self.navigationItem.setRightBarButtonItem(rightDrawerButton, animated: true)
+        var button: UIButton! = UIButton(frame: CGRectMake(0,0,20,20))
+        button.setImage(UIImage(named: "right.png"), forState: .Normal)
+        button.addTarget(self, action: "rightDrawerButtonPress:", forControlEvents: .TouchUpInside)
+        
+        var item = UIBarButtonItem(customView: button)
+        self.navigationItem.setRightBarButtonItem(item, animated: true)
     }
     
     
@@ -625,9 +694,9 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         
-        if lastLocation.distanceFromLocation(locations[0] as CLLocation) > 80 {
+        if lastLocation.distanceFromLocation(locations[0] as CLLocation) > 50 {
             
-            currentLocation()
+            println("we made it!")
             
         }
         
@@ -741,8 +810,8 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         mapView.mapType = MKMapType.Standard
-        mapView.removeFromSuperview()
-        mapView = nil
+//        mapView.removeFromSuperview()
+//        mapView = nil
     }
     
 }

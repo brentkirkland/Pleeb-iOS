@@ -84,10 +84,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LoginOrDrawerController(win: window)
         
     }
+    
+    func applicationDidEnterBackground(application: UIApplication) {
+        println("Did enter background")
+        exit(0)
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        
-        
+
         return true
     }
     
@@ -99,39 +103,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
-        if let key = identifierComponents.last as? String {
-            if key == "Drawer" {
-                return self.window.rootViewController as SignUpLoginViewController
-            } else if key == "MapViewNavigationControllerRestorationKey" {
-                return (self.window.rootViewController as DrawerController).centerViewController
-            } else if key == "TheListiewRightControllerRestorationKey" {
-                return (self.window.rootViewController as DrawerController).rightDrawerViewController
-            } else if key == "SettingsViewLeftControllerRestorationKey" {
-                return (self.window.rootViewController as DrawerController).leftDrawerViewController
-            } else if key == "SettingsViewController" {
-                if let leftVC = (self.window.rootViewController as? DrawerController)?.leftDrawerViewController {
-                    if leftVC.isKindOfClass(UINavigationController) {
-                        return (leftVC as UINavigationController).topViewController
-                    } else {
-                        return leftVC
-                    }
-                }
-            } else if key == "TheListiewController" {
-                if let rightVC = (self.window.rootViewController as? DrawerController)?.rightDrawerViewController {
-                    if rightVC.isKindOfClass(UINavigationController) {
-                        return (rightVC as UINavigationController).topViewController
-                    } else {
-                        return rightVC
-                    }
-                }
-            } else if key == "Drawer" {
-                return self.window.rootViewController
-            }
-        }
-        
-        return nil
-    }
+//    func application(application: UIApplication, viewControllerWithRestorationIdentifierPath identifierComponents: [AnyObject], coder: NSCoder) -> UIViewController? {
+//        if let key = identifierComponents.last as? String {
+//            if key == "Drawer" {
+//                return self.window.rootViewController as SignUpLoginViewController
+//            } else if key == "MapViewNavigationControllerRestorationKey" {
+//                return (self.window.rootViewController as DrawerController).centerViewController
+//            } else if key == "TheListiewRightControllerRestorationKey" {
+//                return (self.window.rootViewController as DrawerController).rightDrawerViewController
+//            } else if key == "SettingsViewLeftControllerRestorationKey" {
+//                return (self.window.rootViewController as DrawerController).leftDrawerViewController
+//            } else if key == "SettingsViewController" {
+//                if let leftVC = (self.window.rootViewController as? DrawerController)?.leftDrawerViewController {
+//                    if leftVC.isKindOfClass(UINavigationController) {
+//                        return (leftVC as UINavigationController).topViewController
+//                    } else {
+//                        return leftVC
+//                    }
+//                }
+//            } else if key == "TheListiewController" {
+//                if let rightVC = (self.window.rootViewController as? DrawerController)?.rightDrawerViewController {
+//                    if rightVC.isKindOfClass(UINavigationController) {
+//                        return (rightVC as UINavigationController).topViewController
+//                    } else {
+//                        return rightVC
+//                    }
+//                }
+//            } else if key == "Drawer" {
+//                return self.window.rootViewController
+//            }
+//        }
+//        
+//        return nil
+//    }
     
 }
 

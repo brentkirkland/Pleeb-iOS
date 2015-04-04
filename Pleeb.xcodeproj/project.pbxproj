@@ -47,6 +47,20 @@
 		C7087D451ACB707A003E5930 /* SwiftAddressBookPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D3F1ACB707A003E5930 /* SwiftAddressBookPerson.swift */; };
 		C7087D461ACB707A003E5930 /* SwiftAddressBookRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D401ACB707A003E5930 /* SwiftAddressBookRecord.swift */; };
 		C7087D471ACB707A003E5930 /* SwiftAddressBookSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D411ACB707A003E5930 /* SwiftAddressBookSource.swift */; };
+		C7087D4A1ACE1488003E5930 /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D481ACE1488003E5930 /* left.png */; };
+		C7087D4B1ACE1488003E5930 /* left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D491ACE1488003E5930 /* left@2x.png */; };
+		C7087D4E1ACE1554003E5930 /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D4C1ACE1554003E5930 /* right.png */; };
+		C7087D4F1ACE1554003E5930 /* right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D4D1ACE1554003E5930 /* right@2x.png */; };
+		C7087D541ACE281A003E5930 /* deny.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D501ACE281A003E5930 /* deny.png */; };
+		C7087D551ACE281A003E5930 /* deny@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D511ACE281A003E5930 /* deny@2x.png */; };
+		C7087D561ACE281A003E5930 /* accept.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D521ACE281A003E5930 /* accept.png */; };
+		C7087D571ACE281A003E5930 /* accept@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D531ACE281A003E5930 /* accept@2x.png */; };
+		C7087D5A1ACE30DA003E5930 /* flip.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D581ACE30DA003E5930 /* flip.png */; };
+		C7087D5B1ACE30DA003E5930 /* future@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D591ACE30DA003E5930 /* future@2x.png */; };
+		C7087D5D1ACF3678003E5930 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D5C1ACF3678003E5930 /* SearchBarView.swift */; };
+		C7087D601ACF3FAE003E5930 /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D5E1ACF3FAE003E5930 /* searchIcon.png */; };
+		C7087D611ACF3FAE003E5930 /* searchIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D5F1ACF3FAE003E5930 /* searchIcon@2x.png */; };
+		C7087D631ACF5BBF003E5930 /* TagSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D621ACF5BBF003E5930 /* TagSelectorView.swift */; };
 		C73EA01F1AA1BA9900BB7A80 /* SignUpLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */; };
 		C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */; };
 		C7ADAA3B1AAD054000AD7510 /* ilovevista.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA391AAD054000AD7510 /* ilovevista.png */; };
@@ -150,6 +164,20 @@
 		C7087D3F1ACB707A003E5930 /* SwiftAddressBookPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookPerson.swift; path = ../../SwiftAddressBook/Pod/Classes/SwiftAddressBookPerson.swift; sourceTree = "<group>"; };
 		C7087D401ACB707A003E5930 /* SwiftAddressBookRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookRecord.swift; path = ../../SwiftAddressBook/Pod/Classes/SwiftAddressBookRecord.swift; sourceTree = "<group>"; };
 		C7087D411ACB707A003E5930 /* SwiftAddressBookSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftAddressBookSource.swift; path = ../../SwiftAddressBook/Pod/Classes/SwiftAddressBookSource.swift; sourceTree = "<group>"; };
+		C7087D481ACE1488003E5930 /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = left.png; path = ../../../../left.png; sourceTree = "<group>"; };
+		C7087D491ACE1488003E5930 /* left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "left@2x.png"; path = "../../../../left@2x.png"; sourceTree = "<group>"; };
+		C7087D4C1ACE1554003E5930 /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right.png; path = ../../../../right.png; sourceTree = "<group>"; };
+		C7087D4D1ACE1554003E5930 /* right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "right@2x.png"; path = "../../../../right@2x.png"; sourceTree = "<group>"; };
+		C7087D501ACE281A003E5930 /* deny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = deny.png; path = ../../../../deny.png; sourceTree = "<group>"; };
+		C7087D511ACE281A003E5930 /* deny@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "deny@2x.png"; path = "../../../../deny@2x.png"; sourceTree = "<group>"; };
+		C7087D521ACE281A003E5930 /* accept.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = accept.png; path = ../../../../accept.png; sourceTree = "<group>"; };
+		C7087D531ACE281A003E5930 /* accept@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "accept@2x.png"; path = "../../../../accept@2x.png"; sourceTree = "<group>"; };
+		C7087D581ACE30DA003E5930 /* flip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flip.png; path = ../../../../flip.png; sourceTree = "<group>"; };
+		C7087D591ACE30DA003E5930 /* future@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "future@2x.png"; path = "../../../../future@2x.png"; sourceTree = "<group>"; };
+		C7087D5C1ACF3678003E5930 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		C7087D5E1ACF3FAE003E5930 /* searchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = searchIcon.png; path = ../../../../searchIcon.png; sourceTree = "<group>"; };
+		C7087D5F1ACF3FAE003E5930 /* searchIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "searchIcon@2x.png"; path = "../../../../searchIcon@2x.png"; sourceTree = "<group>"; };
+		C7087D621ACF5BBF003E5930 /* TagSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSelectorView.swift; sourceTree = "<group>"; };
 		C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpLoginViewController.swift; path = "../../Sign-In-Controller/SIgnin/SignUpLoginViewController.swift"; sourceTree = "<group>"; };
 		C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginOrDrawerController.swift; sourceTree = "<group>"; };
 		C7ADAA391AAD054000AD7510 /* ilovevista.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ilovevista.png; sourceTree = "<group>"; };
@@ -248,8 +276,10 @@
 				C70644191AC0974B003CD7A4 /* TheListViewController.swift */,
 				C7087D341AC6A22B003E5930 /* SettingsViewController.swift */,
 				C7058FE41AA1942E0098CF61 /* MapViewController.swift */,
+				C7087D5C1ACF3678003E5930 /* SearchBarView.swift */,
 				C70644171ABF8964003CD7A4 /* CreateTagViewCell.swift */,
 				C706441D1AC0D18C003CD7A4 /* TagSelectorTableView.swift */,
+				C7087D621ACF5BBF003E5930 /* TagSelectorView.swift */,
 				C70644141ABE3B06003CD7A4 /* TagButtonTableViewCell.swift */,
 				C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */,
 				C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */,
@@ -304,6 +334,18 @@
 		C70591791AA1979A0098CF61 /* Support Images */ = {
 			isa = PBXGroup;
 			children = (
+				C7087D581ACE30DA003E5930 /* flip.png */,
+				C7087D591ACE30DA003E5930 /* future@2x.png */,
+				C7087D481ACE1488003E5930 /* left.png */,
+				C7087D5E1ACF3FAE003E5930 /* searchIcon.png */,
+				C7087D5F1ACF3FAE003E5930 /* searchIcon@2x.png */,
+				C7087D4C1ACE1554003E5930 /* right.png */,
+				C7087D4D1ACE1554003E5930 /* right@2x.png */,
+				C7087D491ACE1488003E5930 /* left@2x.png */,
+				C7087D501ACE281A003E5930 /* deny.png */,
+				C7087D511ACE281A003E5930 /* deny@2x.png */,
+				C7087D521ACE281A003E5930 /* accept.png */,
+				C7087D531ACE281A003E5930 /* accept@2x.png */,
 				C7ADAA391AAD054000AD7510 /* ilovevista.png */,
 				C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */,
 				C705922E1AA1979A0098CF61 /* location_button.png */,
@@ -449,11 +491,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7087D551ACE281A003E5930 /* deny@2x.png in Resources */,
 				C7058FCA1AA1936F0098CF61 /* LaunchScreen.xib in Resources */,
+				C7087D571ACE281A003E5930 /* accept@2x.png in Resources */,
+				C7087D611ACF3FAE003E5930 /* searchIcon@2x.png in Resources */,
 				C7ADAA3C1AAD054000AD7510 /* ilovevista@2x.png in Resources */,
 				C70592E41AA1979A0098CF61 /* location_button.png in Resources */,
+				C7087D5B1ACE30DA003E5930 /* future@2x.png in Resources */,
+				C7087D4F1ACE1554003E5930 /* right@2x.png in Resources */,
+				C7087D601ACF3FAE003E5930 /* searchIcon.png in Resources */,
+				C7087D4E1ACE1554003E5930 /* right.png in Resources */,
+				C7087D4B1ACE1488003E5930 /* left@2x.png in Resources */,
 				C7ADAA3B1AAD054000AD7510 /* ilovevista.png in Resources */,
 				C70592E51AA1979A0098CF61 /* location_button@2x.png in Resources */,
+				C7087D561ACE281A003E5930 /* accept.png in Resources */,
+				C7087D5A1ACE30DA003E5930 /* flip.png in Resources */,
+				C7087D541ACE281A003E5930 /* deny.png in Resources */,
+				C7087D4A1ACE1488003E5930 /* left.png in Resources */,
 				C7058FC71AA1936F0098CF61 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +538,7 @@
 				C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */,
 				C7087D351AC6A22B003E5930 /* SettingsViewController.swift in Sources */,
 				C70644221AC49991003CD7A4 /* CreateUsernameView.swift in Sources */,
+				C7087D631ACF5BBF003E5930 /* TagSelectorView.swift in Sources */,
 				C7087D3B1ACB7002003E5930 /* SwiftAddressBookWrapper.swift in Sources */,
 				C7087D451ACB707A003E5930 /* SwiftAddressBookPerson.swift in Sources */,
 				C7058FF31AA194C90098CF61 /* SideDrawerSectionHeaderView.swift in Sources */,
@@ -504,6 +559,7 @@
 				C7087D461ACB707A003E5930 /* SwiftAddressBookRecord.swift in Sources */,
 				C7058FE11AA193D10098CF61 /* ExampleDrawerVisualStateManager.swift in Sources */,
 				C7058FE31AA194200098CF61 /* ExampleViewController.swift in Sources */,
+				C7087D5D1ACF3678003E5930 /* SearchBarView.swift in Sources */,
 				C70592FD1AA199020098CF61 /* Model.swift in Sources */,
 				C7058FF51AA194FF0098CF61 /* AnimatedMenuButton.swift in Sources */,
 				C706441E1AC0D18C003CD7A4 /* TagSelectorTableView.swift in Sources */,
