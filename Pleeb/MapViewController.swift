@@ -8,7 +8,8 @@ import CoreLocation
 import Alamofire
 import Realm
 import QuartzCore
-//import AddressBook
+import AddressBook
+
 
 
 enum CenterViewControllerSection: Int {
@@ -32,6 +33,10 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
     
     var intialLocationLoad = false
     
+    var adbk : ABAddressBookRef!
+    
+    var userLocation:CLLocation!
+    
     //search bar
     
     var searchBar: SearchBarView!
@@ -54,7 +59,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         lastLocation = CLLocation(latitude: 45, longitude: -45)
         
         
-
+        
         //var attributionLabel: UILabel = mapView.subviews.
         
         // INITILIZE LOCATION MANAGER
@@ -104,12 +109,17 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         button.addTarget(self, action: Selector("clickOnButton:"), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = button
         
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) {
+            self.getContactNames()
+        }
+        
     }
     
     func clickOnButton(sender: UIButton!)
     {
         if tableView != nil {
-
+            
             button.enabled = false
             tableView.endEditing(true)
             //tableView.userInteractionEnabled = false
@@ -558,7 +568,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
     
     func setupLeftMenuButton() {
         
-
+        
         
         var button: UIButton! = UIButton(frame: CGRectMake(0,0,20,20))
         button.setImage(UIImage(named: "left.png"), forState: .Normal)
@@ -567,15 +577,15 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         var item = UIBarButtonItem(customView: button)
         
         
-//        var button2: UIButton! = UIButton(frame: CGRectMake(30,0,20,20))
-//        button2.setImage(UIImage(named: "searchIcon.png"), forState: .Normal)
-//        //button2.addTarget(self, action: "leftDrawerButtonPress:", forControlEvents: .TouchUpInside)
-//        var item2 = UIBarButtonItem(customView: button2)
+        //        var button2: UIButton! = UIButton(frame: CGRectMake(30,0,20,20))
+        //        button2.setImage(UIImage(named: "searchIcon.png"), forState: .Normal)
+        //        //button2.addTarget(self, action: "leftDrawerButtonPress:", forControlEvents: .TouchUpInside)
+        //        var item2 = UIBarButtonItem(customView: button2)
         
         //let leftDrawerButton = DrawerBarButtonItem(target: self, action: "leftDrawerButtonPress:")
         self.navigationItem.setLeftBarButtonItem(item, animated: true)
         
-
+        
     }
     
     
@@ -700,7 +710,43 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
             
         }
         
-        var userLocation:CLLocation! = locations[0] as CLLocation
+        userLocation = locations[0] as CLLocation
+        lastLocation = locations[0] as CLLocation
+        
+//        CLGeocoder().reverseGeocodeLocation(userLocation, completionHandler: { (placemarks, error) -> Void in
+//            
+//            if (error != nil) {
+//                
+//                println(error)
+//                
+//            } else {
+//                
+//                if let p = CLPlacemark(placemark: placemarks?[0] as CLPlacemark) {
+//                    
+//                    var subThoroughfare:String = ""
+//                    
+//                    if (p.subThoroughfare != nil) {
+//                        
+//                        subThoroughfare = p.subThoroughfare
+//                        
+//                    }
+//                    self.accuracy = locations[0].horizontalAccuracy
+//                    self.address = "\(subThoroughfare) \(p.thoroughfare)^.#/\(p.subLocality)^.#/\(p.subAdministrativeArea)^.#/\(p.postalCode)^.#/\(p.country)"
+//                    
+//                }
+//                
+//                
+//            }
+//            
+//        })
+//        
+//
+//        
+    }
+    
+    func reverseGeocode(){
+        
+        var methodStart: NSDate = NSDate()
         
         CLGeocoder().reverseGeocodeLocation(userLocation, completionHandler: { (placemarks, error) -> Void in
             
@@ -719,9 +765,13 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                         subThoroughfare = p.subThoroughfare
                         
                     }
-                    self.accuracy = locations[0].horizontalAccuracy
+                    self.accuracy = self.lastLocation.horizontalAccuracy
                     self.address = "\(subThoroughfare) \(p.thoroughfare)^.#/\(p.subLocality)^.#/\(p.subAdministrativeArea)^.#/\(p.postalCode)^.#/\(p.country)"
-                    
+                    var methodFinished: NSDate = NSDate()
+                    var executionTime: NSTimeInterval = methodFinished.timeIntervalSinceDate(methodStart)
+                    println("the execution time was \(executionTime)")
+                    println(self.address)
+                    self.getSelectedTags()
                 }
                 
                 
@@ -729,15 +779,14 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
             
         })
         
-        lastLocation = locations[0] as CLLocation
         
     }
     
     func mapView(mapView: MKMapView!, didSelectAnnotationView view: MKAnnotationView!) {
         
         if (view.reuseIdentifier == "me"){
-            
-            self.getSelectedTags()
+            reverseGeocode()
+//            self.getSelectedTags()
             
         }
         
@@ -792,7 +841,116 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
     
     //ADDRESS BOOK ACCESS FOR FRIENDS
     
+    func createAddressBook() -> Bool {
+        if self.adbk != nil {
+            return true
+        }
+        var err : Unmanaged<CFError>? = nil
+        let adbk : ABAddressBook? = ABAddressBookCreateWithOptions(nil, &err).takeRetainedValue()
+        if adbk == nil {
+            println(err)
+            self.adbk = nil
+            return false
+        }
+        self.adbk = adbk
+        return true
+    }
     
+    func determineStatus() -> Bool {
+        let status = ABAddressBookGetAuthorizationStatus()
+        switch status {
+        case .Authorized:
+            return self.createAddressBook()
+        case .NotDetermined:
+            var ok = false
+            ABAddressBookRequestAccessWithCompletion(nil) {
+                (granted:Bool, err:CFError!) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    if granted {
+                        ok = self.createAddressBook()
+                    }
+                }
+            }
+            if ok == true {
+                return true
+            }
+            self.adbk = nil
+            return false
+        case .Restricted:
+            self.adbk = nil
+            return false
+        case .Denied:
+            self.adbk = nil
+            return false
+        }
+    }
+    
+    func getContactNames() {
+        if !self.determineStatus() {
+            println("not authorized")
+            return
+        }
+        else {
+            let users = User.allObjects()
+            let user = users[UInt(0)] as User
+            
+            let people = ABAddressBookCopyArrayOfAllPeople(adbk).takeRetainedValue() as NSArray as [ABRecord]
+            
+            for person in people {
+                
+                var phones: ABMultiValueRef = ABRecordCopyValue(person, kABPersonPhoneProperty).takeUnretainedValue() as ABMultiValueRef
+                
+                for var index = 0; index < ABMultiValueGetCount(phones); ++index{
+                    let currentPhoneLabel = ABMultiValueCopyLabelAtIndex(phones, index).takeUnretainedValue() as CFStringRef as String
+                    let currentPhoneValue = ABMultiValueCopyValueAtIndex(phones, index).takeUnretainedValue() as CFStringRef as String
+                    
+                    if currentPhoneLabel == kABPersonPhoneMobileLabel {
+                        
+                        var skinnyPhone: String = ""
+                        
+                        for char: Character in currentPhoneValue {
+                            
+                            if (char == "1" || char == "2" || char == "3" || char == "4" || char == "5" || char == "6" || char == "7" || char == "8" || char == "9" || char == "0") {
+                                
+                                skinnyPhone = skinnyPhone + [char]
+                                
+                            }
+                            
+                        }
+                        
+                        if skinnyPhone.utf16Count == 10 {
+                            
+                            skinnyPhone = "1" + skinnyPhone
+                            
+                        }
+                        if skinnyPhone.utf16Count == 11 {
+                            
+                            if user.phone != skinnyPhone {
+                                
+                                //println(skinnyPhone)
+                                
+                                if Contacts.objectsWhere("phone = '\(skinnyPhone)'").count < 1 {
+                                    
+                                    //println("In the instance \(skinnyPhone)")
+                                    let contact = Contacts()
+                                    let realm = RLMRealm.defaultRealm()
+                                    realm.beginWriteTransaction()
+                                    contact.name = ABRecordCopyCompositeName(person).takeRetainedValue()
+                                    contact.phone = skinnyPhone
+                                    realm.addObject(contact)
+                                    realm.commitWriteTransaction()
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        
+    }
     
     
     // MARK: - Button Handlers
@@ -810,8 +968,8 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         mapView.mapType = MKMapType.Standard
-//        mapView.removeFromSuperview()
-//        mapView = nil
+        //        mapView.removeFromSuperview()
+        //        mapView = nil
     }
     
 }

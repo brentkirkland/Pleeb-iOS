@@ -28,9 +28,7 @@
 		C705900A1AA196C70098CF61 /* TBClusterAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = C70590091AA196C70098CF61 /* TBClusterAnnotationView.m */; };
 		C70592E41AA1979A0098CF61 /* location_button.png in Resources */ = {isa = PBXBuildFile; fileRef = C705922E1AA1979A0098CF61 /* location_button.png */; };
 		C70592E51AA1979A0098CF61 /* location_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C705922F1AA1979A0098CF61 /* location_button@2x.png */; };
-		C70592E71AA197BE0098CF61 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70592E61AA197BE0098CF61 /* Realm.framework */; };
 		C70592E91AA197DC0098CF61 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C70592E81AA197DC0098CF61 /* libc++.dylib */; };
-		C70592EB1AA1980C0098CF61 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592EA1AA1980C0098CF61 /* RLMSupport.swift */; };
 		C70592ED1AA198290098CF61 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592EC1AA198290098CF61 /* SwiftyJSON.swift */; };
 		C70592FA1AA198830098CF61 /* Alamofire.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = C70592F41AA1984B0098CF61 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C70592FD1AA199020098CF61 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70592FC1AA199020098CF61 /* Model.swift */; };
@@ -61,10 +59,14 @@
 		C7087D601ACF3FAE003E5930 /* searchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D5E1ACF3FAE003E5930 /* searchIcon.png */; };
 		C7087D611ACF3FAE003E5930 /* searchIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7087D5F1ACF3FAE003E5930 /* searchIcon@2x.png */; };
 		C7087D631ACF5BBF003E5930 /* TagSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D621ACF5BBF003E5930 /* TagSelectorView.swift */; };
+		C7087D651AD0CA53003E5930 /* TagButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D641AD0CA53003E5930 /* TagButtonViewCell.swift */; };
+		C7087D671AD0CEA9003E5930 /* ContactButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7087D661AD0CEA9003E5930 /* ContactButtonTableViewCell.swift */; };
 		C73EA01F1AA1BA9900BB7A80 /* SignUpLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */; };
 		C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */; };
 		C7ADAA3B1AAD054000AD7510 /* ilovevista.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA391AAD054000AD7510 /* ilovevista.png */; };
 		C7ADAA3C1AAD054000AD7510 /* ilovevista@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */; };
+		C7B32DDC1AD1EB6F00424863 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B32DDB1AD1EB6F00424863 /* RLMSupport.swift */; };
+		C7B32DDD1AD1EC8C00424863 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B32DD81AD1EB1B00424863 /* Realm.framework */; };
 		C7B413A91ABE0EE400FD47EF /* TagSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */; };
 		C7EF20421AC52C58007781F0 /* LeaderBoardTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */; };
 /* End PBXBuildFile section */
@@ -145,9 +147,7 @@
 		C70590091AA196C70098CF61 /* TBClusterAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBClusterAnnotationView.m; sourceTree = "<group>"; };
 		C705922E1AA1979A0098CF61 /* location_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_button.png; sourceTree = "<group>"; };
 		C705922F1AA1979A0098CF61 /* location_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_button@2x.png"; sourceTree = "<group>"; };
-		C70592E61AA197BE0098CF61 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../realm-cocoa/build/ios/Realm.framework"; sourceTree = "<group>"; };
 		C70592E81AA197DC0098CF61 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		C70592EA1AA1980C0098CF61 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RLMSupport.swift; path = "../../realm-cocoa/Realm/Swift/RLMSupport.swift"; sourceTree = "<group>"; };
 		C70592EC1AA198290098CF61 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = ../../SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
 		C70592EE1AA1984B0098CF61 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = ../../Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		C70592FC1AA199020098CF61 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -178,10 +178,14 @@
 		C7087D5E1ACF3FAE003E5930 /* searchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = searchIcon.png; path = ../../../../searchIcon.png; sourceTree = "<group>"; };
 		C7087D5F1ACF3FAE003E5930 /* searchIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "searchIcon@2x.png"; path = "../../../../searchIcon@2x.png"; sourceTree = "<group>"; };
 		C7087D621ACF5BBF003E5930 /* TagSelectorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSelectorView.swift; sourceTree = "<group>"; };
+		C7087D641AD0CA53003E5930 /* TagButtonViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagButtonViewCell.swift; sourceTree = "<group>"; };
+		C7087D661AD0CEA9003E5930 /* ContactButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactButtonTableViewCell.swift; sourceTree = "<group>"; };
 		C73EA01E1AA1BA9900BB7A80 /* SignUpLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignUpLoginViewController.swift; path = "../../Sign-In-Controller/SIgnin/SignUpLoginViewController.swift"; sourceTree = "<group>"; };
 		C743C18B1AA1C2F800F13735 /* LoginOrDrawerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginOrDrawerController.swift; sourceTree = "<group>"; };
 		C7ADAA391AAD054000AD7510 /* ilovevista.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ilovevista.png; sourceTree = "<group>"; };
 		C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilovevista@2x.png"; sourceTree = "<group>"; };
+		C7B32DD81AD1EB1B00424863 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../realm-cocoa/ios/Realm.framework"; sourceTree = "<group>"; };
+		C7B32DDB1AD1EB6F00424863 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RLMSupport.swift; path = "../../realm-cocoa/Swift/RLMSupport.swift"; sourceTree = "<group>"; };
 		C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSelectorViewController.swift; sourceTree = "<group>"; };
 		C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardTagCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,7 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C70592E91AA197DC0098CF61 /* libc++.dylib in Frameworks */,
-				C70592E71AA197BE0098CF61 /* Realm.framework in Frameworks */,
+				C7B32DDD1AD1EC8C00424863 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +284,8 @@
 				C70644171ABF8964003CD7A4 /* CreateTagViewCell.swift */,
 				C706441D1AC0D18C003CD7A4 /* TagSelectorTableView.swift */,
 				C7087D621ACF5BBF003E5930 /* TagSelectorView.swift */,
+				C7087D661AD0CEA9003E5930 /* ContactButtonTableViewCell.swift */,
+				C7087D641AD0CA53003E5930 /* TagButtonViewCell.swift */,
 				C70644141ABE3B06003CD7A4 /* TagButtonTableViewCell.swift */,
 				C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */,
 				C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */,
@@ -314,6 +320,8 @@
 		C70591781AA197350098CF61 /* Supporting Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7B32DDB1AD1EB6F00424863 /* RLMSupport.swift */,
+				C7B32DD81AD1EB1B00424863 /* Realm.framework */,
 				C7087D3C1ACB707A003E5930 /* SwiftAddressBookDataStructures.swift */,
 				C7087D3D1ACB707A003E5930 /* SwiftAddressBookGroup.swift */,
 				C7087D3E1ACB707A003E5930 /* SwiftAddressBookHelperMethods.swift */,
@@ -323,9 +331,7 @@
 				C7087D3A1ACB7002003E5930 /* SwiftAddressBookWrapper.swift */,
 				C70592EE1AA1984B0098CF61 /* Alamofire.xcodeproj */,
 				C70592EC1AA198290098CF61 /* SwiftyJSON.swift */,
-				C70592EA1AA1980C0098CF61 /* RLMSupport.swift */,
 				C70592E81AA197DC0098CF61 /* libc++.dylib */,
-				C70592E61AA197BE0098CF61 /* Realm.framework */,
 			);
 			name = "Supporting Frameworks";
 			path = Pleeb;
@@ -538,6 +544,7 @@
 				C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */,
 				C7087D351AC6A22B003E5930 /* SettingsViewController.swift in Sources */,
 				C70644221AC49991003CD7A4 /* CreateUsernameView.swift in Sources */,
+				C7087D671AD0CEA9003E5930 /* ContactButtonTableViewCell.swift in Sources */,
 				C7087D631ACF5BBF003E5930 /* TagSelectorView.swift in Sources */,
 				C7087D3B1ACB7002003E5930 /* SwiftAddressBookWrapper.swift in Sources */,
 				C7087D451ACB707A003E5930 /* SwiftAddressBookPerson.swift in Sources */,
@@ -545,7 +552,6 @@
 				C7087D421ACB707A003E5930 /* SwiftAddressBookDataStructures.swift in Sources */,
 				C7058FED1AA194920098CF61 /* TableViewCell.swift in Sources */,
 				C70590071AA196A60098CF61 /* TBClusterAnnotation.m in Sources */,
-				C70592EB1AA1980C0098CF61 /* RLMSupport.swift in Sources */,
 				C7B413A91ABE0EE400FD47EF /* TagSelectorViewController.swift in Sources */,
 				C705900A1AA196C70098CF61 /* TBClusterAnnotationView.m in Sources */,
 				C7058FFB1AA1954B0098CF61 /* DrawerVisualState.swift in Sources */,
@@ -553,11 +559,13 @@
 				C7058FF91AA1953A0098CF61 /* DrawerController.swift in Sources */,
 				C70590011AA195DC0098CF61 /* TBQuadTree.m in Sources */,
 				C70592ED1AA198290098CF61 /* SwiftyJSON.swift in Sources */,
+				C7B32DDC1AD1EB6F00424863 /* RLMSupport.swift in Sources */,
 				C7058FE51AA1942E0098CF61 /* MapViewController.swift in Sources */,
 				C73EA01F1AA1BA9900BB7A80 /* SignUpLoginViewController.swift in Sources */,
 				C7058FF11AA194B80098CF61 /* CenterTableViewCell.swift in Sources */,
 				C7087D461ACB707A003E5930 /* SwiftAddressBookRecord.swift in Sources */,
 				C7058FE11AA193D10098CF61 /* ExampleDrawerVisualStateManager.swift in Sources */,
+				C7087D651AD0CA53003E5930 /* TagButtonViewCell.swift in Sources */,
 				C7058FE31AA194200098CF61 /* ExampleViewController.swift in Sources */,
 				C7087D5D1ACF3678003E5930 /* SearchBarView.swift in Sources */,
 				C70592FD1AA199020098CF61 /* Model.swift in Sources */,
@@ -689,6 +697,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/build/ios",
+					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/ios",
 				);
 				INFOPLIST_FILE = Pleeb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -711,6 +720,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/build/ios",
+					"/Users/brentkirkland/Desktop/PLEEBVERSIONONE/realm-cocoa/ios",
 				);
 				INFOPLIST_FILE = Pleeb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

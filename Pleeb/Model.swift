@@ -41,3 +41,10 @@ class Tag: RLMObject {
     dynamic var userSelectedTag: Int = 0
     
 }
+
+class Contacts: RLMObject {
+    
+    dynamic var name: String! = ""
+    dynamic var phone: String! = ""
+    
+}

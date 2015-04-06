@@ -14,9 +14,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "LoginOrDrawerController"
-            landmarkType = "3">
+            endingLineNumber = "17">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pleeb/TagSelectorView.swift"
-            timestampString = "449817550.522046"
+            timestampString = "449989899.226606"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "TagSelectorView"
             landmarkType = "3">
          </BreakpointContent>
@@ -358,13 +356,57 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Sign-In-Controller/SIgnin/SignUpLoginViewController.swift"
-            timestampString = "449568319.496226"
+            timestampString = "449874564.004623"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1310"
-            endingLineNumber = "1310"
-            landmarkName = "buildAgreeTextViewFromString(_:)"
-            landmarkType = "5">
+            startingLineNumber = "1303"
+            endingLineNumber = "1303">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pleeb/ContactButtonTableViewCell.swift"
+            timestampString = "449987326.276613"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "ContactButtonTableViewCell"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Livv.ContactButtonTableViewCell.init (Livv.ContactButtonTableViewCell.Type)(style : C.UITableViewCellStyle, reuseIdentifier : Swift.Optional&lt;Swift.String&gt;) -&gt; Livv.ContactButtonTableViewCell"
+                  moduleName = "Livv"
+                  urlString = "file:///Users/brentkirkland/Desktop/PLEEBVERSIONONE/Pleeb/Pleeb/ContactButtonTableViewCell.swift"
+                  timestampString = "449987326.281936"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Livv.ContactButtonTableViewCell.__allocating_init (Livv.ContactButtonTableViewCell.Type)(style : C.UITableViewCellStyle, reuseIdentifier : Swift.Optional&lt;Swift.String&gt;) -&gt; Livv.ContactButtonTableViewCell"
+                  moduleName = "Livv"
+                  urlString = "file:///Users/brentkirkland/Desktop/PLEEBVERSIONONE/Pleeb/Pleeb/ContactButtonTableViewCell.swift"
+                  timestampString = "449987326.282288"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "100">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

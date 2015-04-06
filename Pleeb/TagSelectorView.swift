@@ -8,6 +8,12 @@
 
 import Foundation
 
+struct Tags {
+    var title: String!
+    var isContact: Bool!
+    var phone: String!
+}
+
 class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var addTag: UITextField!
@@ -16,7 +22,9 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
     
     var tableView: UITableView!
     
-    var tags: [String] = ["Deltopia", "Sadaf Sucks", "Your Momma", "DP", "Random", "Slyd", "Devin Toner","Deltopia", "Sadaf Sucks", "Your Momma", "DP"]
+    var searchedTags: [Tags] = []
+    var tags: [Tags] = [Tags(title: "Node sucks", isContact: false, phone: ""), Tags(title: "Swift rules", isContact: false, phone: "")]
+    var selectedTags: [Tags] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,9 +43,8 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
     
     func commonSetup(){
         
-        
         addTagBackground = UIView()
-        addTagBackground.backgroundColor = UIColor(red: 41/255, green: 171/255, blue: 226/255, alpha: 0.9)
+        addTagBackground.backgroundColor = UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 0.9)
         addTagBackground.layer.cornerRadius = 2
         self.addSubview(addTagBackground)
         
@@ -49,7 +56,7 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
         addTag.textColor = UIColor.whiteColor()
         fitToSize()
         addTag.addTarget(self, action: "textFieldChanged:", forControlEvents: UIControlEvents.EditingChanged)
-        addTag.returnKeyType = UIReturnKeyType.Done
+        addTag.keyboardType = .Twitter
         addTag.delegate = self
         addTag.layer.cornerRadius = 2
         
@@ -78,10 +85,7 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
         tableView.dataSource = self
         tableView.delegate = self
         self.addSubview(tableView)
-//        
-//        var singletap: UITapGestureRecognizer  = UITapGestureRecognizer(target: self, action: "singleTap:")
-//        singletap.numberOfTapsRequired = 1
-//        self.addGestureRecognizer(singletap)
+        
     }
     
     func submit(selector: UIButton!){
@@ -91,42 +95,50 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         println("tags count is: \(tags.count)")
-        return tags.count
+        println("searchedTags count is: \(searchedTags.count)")
+        return tags.count + searchedTags.count
     }
 //
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellID = tags[indexPath.row]
-        var cell:UITableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? UITableViewCell
         
-        if (cell == nil) {
+        if searchedTags.count > indexPath.row {
             
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID)
+            let cellID = searchedTags[indexPath.row].title
+            var cell:ContactButtonTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? ContactButtonTableViewCell
             
-        
-        cell.backgroundColor = UIColor.clearColor()
-        var button: UIButton! = UIButton()
-        button.addTarget(self, action: "selectedTag:", forControlEvents: .TouchUpInside)
-        button.setTitle(tags[indexPath.row], forState: .Normal)
-        
-        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-        button.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
-        button.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 22)
-        button?.sizeToFit()
-        button.layer.cornerRadius = 2
-        
-        var titleWidth: CGFloat! = (button.titleLabel?.frame.width as CGFloat!) + 10
-        var titleHeight: CGFloat! = (button.titleLabel?.frame.size.height as CGFloat!) + 5
-        
-        button.frame = CGRect(x: 10, y: 10, width: titleWidth, height: titleHeight)
-        
-        cell.contentView.addSubview(button)
-        cell.selectionStyle = .None
-        cell.backgroundView = nil
-        cell.contentView.backgroundColor = UIColor.clearColor()
-        
+            if (cell == nil) {
+                
+                cell = ContactButtonTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: searchedTags[indexPath.row])
+                
+                cell.backgroundColor = UIColor.clearColor()
+                
+                cell.selectionStyle = .None
+                cell.backgroundView = nil
+                cell.contentView.backgroundColor = UIColor.clearColor()
+                
+            }
+            return cell
+            
+        } else {
+            
+            
+            let cellID = tags[indexPath.row - searchedTags.count].title
+            var cell:TagButtonViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? TagButtonViewCell
+            
+            if (cell == nil) {
+                
+                cell = TagButtonViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, title: tags[indexPath.row - searchedTags.count].title)
+                
+                cell.backgroundColor = UIColor.clearColor()
+                
+                cell.selectionStyle = .None
+                cell.backgroundView = nil
+                cell.contentView.backgroundColor = UIColor.clearColor()
+                
+            }
+            return cell
         }
         
-        return cell
     }
 //
     func selectedTag(sender: UIButton!){
@@ -151,7 +163,7 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
         //used when typing
         addTag?.sizeToFit()
         addTagBackground.frame = CGRect(x: 10, y: 0, width: addTag.frame.size.width + 10, height:  addTag.frame.size.height + 5)
-        println("size of addTag is\(addTagBackground.frame)")
+        //println("size of addTag is\(addTagBackground.frame)")
         
     }
     
@@ -161,40 +173,78 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
         
     }
     
-//    func addTags(){
-//        
-//        for var i = 0; i < tags.count; i++ {
-//            
-//            var button = makeTagButton(tags[i])
-//            self.addSubview(button)
-//        }
-//        
-//    }
-    
-//    func makeTagButton(string: String) -> UIButton{
-//        //var xpos:Int! = (z)
-//        
-//        var button: UIButton! = UIButton()
-//        button.setTitle(string, forState: .Normal)
-//        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-//        button.backgroundColor = UIColor(red: 26/255, green: 26/255, blue: 26/255, alpha: 1)
-//        button.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 22)
-//        button.layer.cornerRadius = 2
-//        button.sizeToFit()
-//        var width:CGFloat = button.frame.width + 15
-//        var x:CGFloat! = 10
-//        var y:CGFloat! = 10*line + 31*(line)
-//        var height:CGFloat! = 31
-//        
-//        self.line = self.line + 1
-//        
-//        button.frame = CGRectMake(x, y, width, height)
-//        //button.frame = CGRect(x: xpos + 10, y: 0, width: wide + 15, height: 31)
-//        
-//        
-//        return button
-//        
-//    }
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        var actualString: String! = ""
+
+        println("The textfield text is: \(textField.text)")
+        println("The textfield plus string is: \(textField.text + string)")
+        println("The string is: \(string)")
+        println(range)
+        
+        if string == "" {
+            
+            actualString = textField.text.substringWithRange(Range<String.Index>(start: textField.text.startIndex, end: advance(textField.text.endIndex, -1)))
+            
+        } else {
+            
+            actualString = textField.text + string
+        }
+        
+        println("actual string \(actualString)")
+        
+        if (actualString).utf16Count > 1{
+            
+            if (actualString as NSString).substringToIndex(1) == "@" {
+                
+                
+                self.searchedTags = []
+                
+                var newString = (actualString as NSString).substringFromIndex(1)
+                
+                if Contacts.objectsWhere("name CONTAINS[c] '\(newString)'").count > 0 {
+                    
+                    //println("check one two")
+                    
+                    var length: UInt = Contacts.objectsWhere("name CONTAINS[c] '\(newString)' AND phone BEGINSWITH '1'").count
+                    //println(length)
+                    var cntcts = Contacts.objectsWhere("name CONTAINS[c] '\(newString)' AND phone BEGINSWITH '1'")
+        
+                    
+                    for var i: UInt = 0; i < length; i++ {
+                        
+                        println((cntcts[i] as Contacts).phone)
+                        
+                        var tag = Tags(title: (cntcts[i] as Contacts).name, isContact: true, phone: (cntcts[i] as Contacts).phone)
+                        
+                        searchedTags.append(tag)
+                    
+                        //tags.append(tag)
+                        //tags.insert(tags, index: 0)
+                        //tags.insert(tag, atIndex: 0)
+                        
+                    }
+                    
+                    self.tableView.reloadData()
+                }
+
+                
+                
+            } else {
+                
+                //insert tag
+                //updateTag
+                
+            }
+        } else {
+            
+            self.searchedTags = []
+            self.tableView.reloadData()
+
+        }
+        
+        return true
+    }
     
     
     
