@@ -11,7 +11,7 @@ import Foundation
 class ContactButtonTableViewCell: TagButtonViewCell {
     
     var phone: String!
-    let theTag: Tags!
+    //let theTag: Tags!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,11 +20,11 @@ class ContactButtonTableViewCell: TagButtonViewCell {
         super.init(coder: aDecoder)
         
     }
-    init(style: UITableViewCellStyle, reuseIdentifier: String?, view: TagSelectorView, tag: Tags) {
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?, view: TagSelectorView, tag: Tags) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         button.setTitle(tag.title, forState: .Normal)
-        super.title = tag.title
-        self.theTag = tag
+        //super.title = tag.title
+        super.theTag = tag
         super.view = view
         self.commonSetup()
         button.addTarget(self, action: "selectedContact:", forControlEvents: .TouchUpInside)
@@ -53,12 +53,13 @@ class ContactButtonTableViewCell: TagButtonViewCell {
             
             button.setTitleColor(UIColor.blackColor(), forState: .Normal)
             button.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 50/255, alpha: 0.9)
-            super.view.selectedTags.append(Tags(title: theTag.title, isContact: true, phone: theTag.phone))
-            super.view.tags.insert(Tags(title: theTag.title, isContact: true, phone: theTag.phone), atIndex: 0)
+            super.view.selectedTags.append(theTag)
+            super.view.tags.insert(theTag, atIndex: 0)
             println(view.tags[0].title)
             println(view.tags.count)
-            view.addTag.text = nil
-            view.searchedTags = []
+            self.view.addTag.text = nil
+            self.view.addTag.sizeToFit()
+            self.view.searchedTags = []
             view.tableView.reloadData()
 
             

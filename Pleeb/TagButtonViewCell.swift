@@ -12,7 +12,7 @@ class TagButtonViewCell: UITableViewCell {
     
     var view: TagSelectorView!
     
-    var title: String!
+    var theTag: Tags!
     var button: UIButton! = UIButton()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -23,11 +23,12 @@ class TagButtonViewCell: UITableViewCell {
         super.init(coder: aDecoder)
         
     }
-    init(style: UITableViewCellStyle, reuseIdentifier: String?, view: TagSelectorView, title: String) {
+    init(style: UITableViewCellStyle, reuseIdentifier: String?, view: TagSelectorView, tag: Tags) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.view = view
-        self.title = title
-        button.setTitle(title, forState: .Normal)
+        self.theTag = tag
+        //self.title = title
+        button.setTitle(tag.title, forState: .Normal)
         self.commonSetup()
         button.addTarget(self, action: "selectedTag:", forControlEvents: .TouchUpInside)
     }
@@ -67,6 +68,11 @@ class TagButtonViewCell: UITableViewCell {
 //            view.tableView.reloadData()
             
             //selected
+            //make sure Tags count is greater than 0
+            self.view.addTag.text = ""
+            self.view.addTag.sizeToFit()
+            self.view.searchedTags = []
+            self.view.tags.insert(theTag, atIndex: 0)
             
             
         }else {

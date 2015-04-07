@@ -10,6 +10,7 @@ import Foundation
 
 struct Tags {
     var title: String!
+    var isPrivate: Bool!
     var isContact: Bool!
     var phone: String!
 }
@@ -23,7 +24,7 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
     var tableView: UITableView!
     
     var searchedTags: [Tags] = []
-    var tags: [Tags] = [Tags(title: "Node sucks", isContact: false, phone: ""), Tags(title: "Swift rules", isContact: false, phone: "")]
+    var tags: [Tags] = []
     var selectedTags: [Tags] = []
     
     override init(frame: CGRect) {
@@ -37,8 +38,13 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
     }
     
     deinit{
-        
-        
+        addTag = nil
+        addTagBackground = nil
+        done = nil
+        tableView = nil
+        searchedTags = []
+        tags = []
+        selectedTags = []
     }
     
     func commonSetup(){
@@ -98,49 +104,144 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
         println("searchedTags count is: \(searchedTags.count)")
         return tags.count + searchedTags.count
     }
-//
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        
+        //searchedtags / addedtags
         if searchedTags.count > indexPath.row {
             
-            let cellID = searchedTags[indexPath.row].title
-            var cell:ContactButtonTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? ContactButtonTableViewCell
+            //if it's a contact -> yellow dude
+            if searchedTags[indexPath.row].isContact == true && searchedTags[indexPath.row].isPrivate == false {
+                
+                let cellID = searchedTags[indexPath.row].title
+                var cell:ContactButtonTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? ContactButtonTableViewCell
+                
+                if (cell == nil) {
+                    
+                    cell = ContactButtonTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: searchedTags[indexPath.row])
+                    
+                    cell.backgroundColor = UIColor.clearColor()
+                    
+                    cell.selectionStyle = .None
+                    cell.backgroundView = nil
+                    cell.contentView.backgroundColor = UIColor.clearColor()
+                    
+                }
+                
+                return cell
+            }
             
-            if (cell == nil) {
+            //if it's a private tag -> pink dude
+            else if searchedTags[indexPath.row].isContact == false && searchedTags[indexPath.row].isPrivate == true {
                 
-                cell = ContactButtonTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: searchedTags[indexPath.row])
+                let cellID = searchedTags[indexPath.row].title
+                var cell:PrivateButtonTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? PrivateButtonTableViewCell
                 
-                cell.backgroundColor = UIColor.clearColor()
+                if (cell == nil) {
+                    
+                    cell = PrivateButtonTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: searchedTags[indexPath.row])
+                    
+                    cell.backgroundColor = UIColor.clearColor()
+                    
+                    cell.selectionStyle = .None
+                    cell.backgroundView = nil
+                    cell.contentView.backgroundColor = UIColor.clearColor()
+                    
+                }
                 
-                cell.selectionStyle = .None
-                cell.backgroundView = nil
-                cell.contentView.backgroundColor = UIColor.clearColor()
+                return cell
                 
             }
-            return cell
+            // if it's a normal tag -> cyan dude
+            else{
+                
+                println("cyan dude")
+                
+                let cellID = searchedTags[indexPath.row].title
+                var cell:TagButtonViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? TagButtonViewCell
+                
+                if (cell == nil) {
+                    
+                    cell = TagButtonViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: searchedTags[indexPath.row])
+                    
+                    cell.backgroundColor = UIColor.clearColor()
+                    
+                    cell.selectionStyle = .None
+                    cell.backgroundView = nil
+                    cell.contentView.backgroundColor = UIColor.clearColor()
+                    
+                }
+                
+                return cell
+                
+            }
             
+        // when a tag has been added and unadded it goes here
         } else {
             
-            
-            let cellID = tags[indexPath.row - searchedTags.count].title
-            var cell:TagButtonViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? TagButtonViewCell
-            
-            if (cell == nil) {
+            //if it's a contact -> yellow dude
+            if tags[indexPath.row - searchedTags.count].isContact == true && tags[indexPath.row - searchedTags.count].isPrivate == false {
                 
-                cell = TagButtonViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, title: tags[indexPath.row - searchedTags.count].title)
+                let cellID = tags[indexPath.row - searchedTags.count].title
+                var cell:ContactButtonTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? ContactButtonTableViewCell
                 
-                cell.backgroundColor = UIColor.clearColor()
-                
-                cell.selectionStyle = .None
-                cell.backgroundView = nil
-                cell.contentView.backgroundColor = UIColor.clearColor()
+                if (cell == nil) {
+                    
+                    cell = ContactButtonTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: tags[indexPath.row - searchedTags.count])
+                    
+                    cell.backgroundColor = UIColor.clearColor()
+                    
+                    cell.selectionStyle = .None
+                    cell.backgroundView = nil
+                    cell.contentView.backgroundColor = UIColor.clearColor()
+                    
+                }
+                return cell
                 
             }
-            return cell
+                //if it's a private tag -> pink dude
+            else if tags[indexPath.row - searchedTags.count].isContact == false && tags[indexPath.row - searchedTags.count].isPrivate == true {
+                
+                let cellID = tags[indexPath.row - searchedTags.count].title
+                var cell:PrivateButtonTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? PrivateButtonTableViewCell
+                
+                if (cell == nil) {
+                    
+                    cell = PrivateButtonTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: tags[indexPath.row - searchedTags.count])
+                    
+                    cell.backgroundColor = UIColor.clearColor()
+                    
+                    cell.selectionStyle = .None
+                    cell.backgroundView = nil
+                    cell.contentView.backgroundColor = UIColor.clearColor()
+                    
+                }
+                return cell
+                
+            }
+            else{
+                
+                let cellID = tags[indexPath.row - searchedTags.count].title
+                var cell:TagButtonViewCell! = tableView.dequeueReusableCellWithIdentifier(cellID) as? TagButtonViewCell
+                
+                if (cell == nil) {
+                    
+                    cell = TagButtonViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellID, view: self, tag: tags[indexPath.row - searchedTags.count])
+                    
+                    cell.backgroundColor = UIColor.clearColor()
+                    
+                    cell.selectionStyle = .None
+                    cell.backgroundView = nil
+                    cell.contentView.backgroundColor = UIColor.clearColor()
+                    
+                }
+                return cell
+            }
         }
         
     }
-//
+    
     func selectedTag(sender: UIButton!){
         
         done.highlighted = true
@@ -159,11 +260,9 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
     
     
     func fitToSize(){
-        
-        //used when typing
+
         addTag?.sizeToFit()
         addTagBackground.frame = CGRect(x: 10, y: 0, width: addTag.frame.size.width + 10, height:  addTag.frame.size.height + 5)
-        //println("size of addTag is\(addTagBackground.frame)")
         
     }
     
@@ -197,14 +296,11 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
             
             if (actualString as NSString).substringToIndex(1) == "@" {
                 
-                
-                self.searchedTags = []
-                
                 var newString = (actualString as NSString).substringFromIndex(1)
                 
                 if Contacts.objectsWhere("name CONTAINS[c] '\(newString)'").count > 0 {
                     
-                    //println("check one two")
+                    self.searchedTags = []
                     
                     var length: UInt = Contacts.objectsWhere("name CONTAINS[c] '\(newString)' AND phone BEGINSWITH '1'").count
                     //println(length)
@@ -215,32 +311,54 @@ class TagSelectorView: UIView, UITextFieldDelegate, UITableViewDelegate, UITable
                         
                         println((cntcts[i] as Contacts).phone)
                         
-                        var tag = Tags(title: (cntcts[i] as Contacts).name, isContact: true, phone: (cntcts[i] as Contacts).phone)
+                        var tag = Tags(title: (cntcts[i] as Contacts).name, isPrivate: false, isContact: true, phone: (cntcts[i] as Contacts).phone)
                         
                         searchedTags.append(tag)
-                    
-                        //tags.append(tag)
-                        //tags.insert(tags, index: 0)
-                        //tags.insert(tag, atIndex: 0)
                         
                     }
                     
                     self.tableView.reloadData()
                 }
 
+            }
+            else if (actualString as NSString).substringToIndex(1) == "#" {
                 
+                var newString = (actualString as NSString).substringFromIndex(1)
                 
-            } else {
+                if searchedTags.count > 0 {
+                    
+                    self.searchedTags[0].title = newString
+                    
+                } else {
+                    
+                    self.searchedTags.append(Tags(title: newString, isPrivate: true, isContact: false, phone: ""))
+                }
                 
-                //insert tag
-                //updateTag
+                self.tableView.reloadData()
+
                 
             }
-        } else {
+            else {
+                
+                if searchedTags.count > 0 {
+                    
+                    self.searchedTags[0].title = actualString
+                    
+                } else {
+                    
+                    self.searchedTags.append(Tags(title: actualString, isPrivate: false, isContact: false, phone: ""))
+                }
+                
+                self.tableView.reloadData()
+                
+            }
+        }
+
+        else {
             
             self.searchedTags = []
             self.tableView.reloadData()
-
+            
         }
         
         return true

@@ -67,6 +67,7 @@
 		C7ADAA3C1AAD054000AD7510 /* ilovevista@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */; };
 		C7B32DDC1AD1EB6F00424863 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B32DDB1AD1EB6F00424863 /* RLMSupport.swift */; };
 		C7B32DDD1AD1EC8C00424863 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B32DD81AD1EB1B00424863 /* Realm.framework */; };
+		C7B32DDF1AD33AD400424863 /* PrivateButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B32DDE1AD33AD400424863 /* PrivateButtonTableViewCell.swift */; };
 		C7B413A91ABE0EE400FD47EF /* TagSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */; };
 		C7EF20421AC52C58007781F0 /* LeaderBoardTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */; };
 /* End PBXBuildFile section */
@@ -186,6 +187,7 @@
 		C7ADAA3A1AAD054000AD7510 /* ilovevista@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ilovevista@2x.png"; sourceTree = "<group>"; };
 		C7B32DD81AD1EB1B00424863 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../realm-cocoa/ios/Realm.framework"; sourceTree = "<group>"; };
 		C7B32DDB1AD1EB6F00424863 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RLMSupport.swift; path = "../../realm-cocoa/Swift/RLMSupport.swift"; sourceTree = "<group>"; };
+		C7B32DDE1AD33AD400424863 /* PrivateButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateButtonTableViewCell.swift; sourceTree = "<group>"; };
 		C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSelectorViewController.swift; sourceTree = "<group>"; };
 		C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardTagCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -285,6 +287,7 @@
 				C706441D1AC0D18C003CD7A4 /* TagSelectorTableView.swift */,
 				C7087D621ACF5BBF003E5930 /* TagSelectorView.swift */,
 				C7087D661AD0CEA9003E5930 /* ContactButtonTableViewCell.swift */,
+				C7B32DDE1AD33AD400424863 /* PrivateButtonTableViewCell.swift */,
 				C7087D641AD0CA53003E5930 /* TagButtonViewCell.swift */,
 				C70644141ABE3B06003CD7A4 /* TagButtonTableViewCell.swift */,
 				C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */,
@@ -541,6 +544,7 @@
 				C706441A1AC0974B003CD7A4 /* TheListViewController.swift in Sources */,
 				C7058FF71AA1952A0098CF61 /* DrawerBarButtonItem.swift in Sources */,
 				C7058FEF1AA194A70098CF61 /* SideDrawerTableViewCell.swift in Sources */,
+				C7B32DDF1AD33AD400424863 /* PrivateButtonTableViewCell.swift in Sources */,
 				C743C18C1AA1C2F800F13735 /* LoginOrDrawerController.swift in Sources */,
 				C7087D351AC6A22B003E5930 /* SettingsViewController.swift in Sources */,
 				C70644221AC49991003CD7A4 /* CreateUsernameView.swift in Sources */,
