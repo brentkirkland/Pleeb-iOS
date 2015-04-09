@@ -73,7 +73,7 @@ CGFloat TBScaledValueForValue(CGFloat value)
 {
     _count = count;
     
-    CGRect newBounds = CGRectMake(0, 0, roundf(40 * TBScaledValueForValue(_weight*10 + _count)), roundf(40 * TBScaledValueForValue(_weight*10 + _count)));
+    CGRect newBounds = CGRectMake(0, 0, roundf(40 * TBScaledValueForValue(_weight*2 + _count)), roundf(40 * TBScaledValueForValue(_weight*2 + _count)));
     self.frame = TBCenterRect(newBounds, self.center);
     
     CGRect newLabelBounds = CGRectMake(0, 0, newBounds.size.width / 1.3, newBounds.size.height / 1.3);

@@ -30,6 +30,7 @@ class User: RLMObject {
 
 class Event: RLMObject {
     
+    
     dynamic var address: String! = "Default"
     dynamic var tags = RLMArray(objectClassName: Tag.className())
 }

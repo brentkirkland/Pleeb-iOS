@@ -69,8 +69,7 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
         newTag.textColor = UIColor.whiteColor()
             
         background.frame = CGRect(x: 10, y: 10, width: newTag.frame.size.width + 10, height:  newTag.frame.size.height + 5)
-        
-        
+
     }
     
     func textFieldChanged(sender: UITextField!){
@@ -100,13 +99,13 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
                 println((textField.text as NSString) + string)
                 println("the range is \(range)")
                 
-                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-                dispatch_async(dispatch_get_global_queue(priority, 0)) {
-                    self.mapClass.tableView.future = true
-                    dispatch_async(dispatch_get_main_queue()) {
-                        self.mapClass.tableView.reloadData()
-                    }
-                }
+//                let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+//                dispatch_async(dispatch_get_global_queue(priority, 0)) {
+//                    self.mapClass.tableView.future = true
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        self.mapClass.tableView.reloadData()
+//                    }
+//                }
                 
                 
                 }
@@ -125,7 +124,7 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
             mapClass.tableView.hidden = true
             var createView: CreateUsernameView! = CreateUsernameView(frame: CGRectMake(50, -170, mapClass.view.frame.size.width-100, 170))
             mapClass.view.addSubview(createView)
-            createView.openWindow(mapClass, tag: newTag.text)
+            //createView.openWindow(mapClass)
             println("here")
             return true
             
@@ -141,7 +140,7 @@ class CreateTagViewCell: UITableViewCell, UITextFieldDelegate {
         else {
             println("hereee")
             mapClass.tableView.endEditing(true)
-            mapClass.tableView.closeWindow(mapClass.tableView)
+            //mapClass.tableView.closeWindow(mapClass.tableView)
             return true
         }
         

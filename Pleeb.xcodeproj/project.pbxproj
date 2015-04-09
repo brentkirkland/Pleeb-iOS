@@ -68,6 +68,8 @@
 		C7B32DDC1AD1EB6F00424863 /* RLMSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B32DDB1AD1EB6F00424863 /* RLMSupport.swift */; };
 		C7B32DDD1AD1EC8C00424863 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B32DD81AD1EB1B00424863 /* Realm.framework */; };
 		C7B32DDF1AD33AD400424863 /* PrivateButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B32DDE1AD33AD400424863 /* PrivateButtonTableViewCell.swift */; };
+		C7B32DE21AD467E600424863 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = C7B32DE01AD467E600424863 /* refresh.png */; };
+		C7B32DE31AD467E600424863 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7B32DE11AD467E600424863 /* refresh@2x.png */; };
 		C7B413A91ABE0EE400FD47EF /* TagSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */; };
 		C7EF20421AC52C58007781F0 /* LeaderBoardTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */; };
 /* End PBXBuildFile section */
@@ -188,6 +190,8 @@
 		C7B32DD81AD1EB1B00424863 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../realm-cocoa/ios/Realm.framework"; sourceTree = "<group>"; };
 		C7B32DDB1AD1EB6F00424863 /* RLMSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RLMSupport.swift; path = "../../realm-cocoa/Swift/RLMSupport.swift"; sourceTree = "<group>"; };
 		C7B32DDE1AD33AD400424863 /* PrivateButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivateButtonTableViewCell.swift; sourceTree = "<group>"; };
+		C7B32DE01AD467E600424863 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = refresh.png; path = ../../../../refresh.png; sourceTree = "<group>"; };
+		C7B32DE11AD467E600424863 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "refresh@2x.png"; path = "../../../../refresh@2x.png"; sourceTree = "<group>"; };
 		C7B413A81ABE0EE400FD47EF /* TagSelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagSelectorViewController.swift; sourceTree = "<group>"; };
 		C7EF20411AC52C58007781F0 /* LeaderBoardTagCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderBoardTagCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -343,6 +347,8 @@
 		C70591791AA1979A0098CF61 /* Support Images */ = {
 			isa = PBXGroup;
 			children = (
+				C7B32DE01AD467E600424863 /* refresh.png */,
+				C7B32DE11AD467E600424863 /* refresh@2x.png */,
 				C7087D581ACE30DA003E5930 /* flip.png */,
 				C7087D591ACE30DA003E5930 /* future@2x.png */,
 				C7087D481ACE1488003E5930 /* left.png */,
@@ -501,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7087D551ACE281A003E5930 /* deny@2x.png in Resources */,
+				C7B32DE21AD467E600424863 /* refresh.png in Resources */,
 				C7058FCA1AA1936F0098CF61 /* LaunchScreen.xib in Resources */,
 				C7087D571ACE281A003E5930 /* accept@2x.png in Resources */,
 				C7087D611ACF3FAE003E5930 /* searchIcon@2x.png in Resources */,
@@ -517,6 +524,7 @@
 				C7087D5A1ACE30DA003E5930 /* flip.png in Resources */,
 				C7087D541ACE281A003E5930 /* deny.png in Resources */,
 				C7087D4A1ACE1488003E5930 /* left.png in Resources */,
+				C7B32DE31AD467E600424863 /* refresh@2x.png in Resources */,
 				C7058FC71AA1936F0098CF61 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,25 +20,28 @@ enum CenterViewControllerSection: Int {
 }
 
 class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationManagerDelegate, UIGestureRecognizerDelegate   {
-    var tableView: TagSelectorTableView!
+    
+    var tableView: TagSelectorView!
     var mapView: MKMapView!
     var manager:CLLocationManager!
     var address: String!
-    var coordinateQuadTree: TBCoordinateQuadTree!
+    var coordinateQuadTree: TBCoordinateQuadTree! = TBCoordinateQuadTree()
     var button: UIButton!
     var connection: Bool! = true
     
     var accuracy: CLLocationAccuracy!
     var lastLocation: CLLocation!
     
+    
     var intialLocationLoad = false
     
+    
     var adbk : ABAddressBookRef!
+    
     
     var userLocation:CLLocation!
     
     //search bar
-    
     var searchBar: SearchBarView!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -123,7 +126,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
             button.enabled = false
             tableView.endEditing(true)
             //tableView.userInteractionEnabled = false
-            tableView.closeWindow(tableView)
+            //tableView.closeWindow(tableView)
             setUpVotes()
         }else {
             currentLocation()
@@ -213,7 +216,6 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                     
                     var x = 0
                     
-                    
                     var count = myJSON.count
                     println("the count is: \(count)")
                     
@@ -234,7 +236,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                     
                     let size = SizeofPoints()
                     //count is minus 1 to account for default tag
-                    size.length = "\(count - 1)"
+                    size.length = "\(count)"
                     realm.addObject(size)
                     
                     while x < count {
@@ -244,6 +246,10 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                         var lon: Double = myJSON[x]["loc"]["coordinates"][0].doubleValue
                         var lat: Double = myJSON[x]["loc"]["coordinates"][1].doubleValue
                         var address: String = myJSON[x]["address"].stringValue
+                        
+                        println(lon)
+                        println(lat)
+                        println(address)
                         
                         let newEvent = Event()
                         
@@ -263,11 +269,15 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                         newEvent.address = address
                         realm.addObject(newEvent)
                         
-                        if (x != count - 1) {
+                        println(lon)
+                        println(lat)
+                        println(address)
+                        
+                        //if (x != count - 1) {
                             newVote.bump = "\(lon)^.#/\(lat)^.#/\(address)^.#/\(topTag)/#.^\(weight)"
-                            println("\(lon)^.#/\(lat)^.#/\(address)^.#/\(topTag)/#.^\(weight)")
+                            println("\(lon)^.#/\(lat)^.#/\(address)^.#/\(topTag)/#.^\(weight)HEYYYY")
                             realm.addObject(newVote)
-                        }
+                        //}
                         
                         x++
                         
@@ -275,11 +285,12 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                     
                     realm.commitWriteTransaction()
                     
-                    self.coordinateQuadTree  = TBCoordinateQuadTree()
                     self.coordinateQuadTree.mapView = self.mapView
                     self.coordinateQuadTree.buildTree()
                     
                     dispatch_async(dispatch_get_main_queue()) {
+                        
+                        println("quad tree")
                         
                         var scale: Double = Double((self.mapView.bounds.size.width / CGFloat(self.mapView.visibleMapRect.size.width)))
                         let annotations: NSArray = self.coordinateQuadTree.clusteredAnnotationsWithinMapRect(self.mapView.visibleMapRect, withZoomScale: scale)
@@ -328,7 +339,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                 println("Error: \(error)")
                 
                 
-                self.tableView = TagSelectorTableView(mapClass: self)
+                //self.tableView = TagSelectorTableView(mapClass: self)
                 self.mapView.showsUserLocation = false
             }
             else {
@@ -379,15 +390,15 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                         
                     }
                     
-                    dispatch_async(dispatch_get_main_queue()) {
-                        
-                        
-                        
-                        //self.tableView = TagSelectorTableView(mapClass: self)
-                        self.view.addSubview(TagSelectorView(frame: CGRectMake(0, 72, self.view.frame.width, self.view.frame.height - 72)))
-                        self.mapView.showsUserLocation = false
-                        
-                    }
+//                    dispatch_async(dispatch_get_main_queue()) {
+//                        
+//                        
+//                        
+//                        //self.tableView = TagSelectorTableView(mapClass: self)
+//                        self.view.addSubview(TagSelectorView(frame: CGRectMake(0, 72, self.view.frame.width, self.view.frame.height - 72), mapClass: self))
+//                        self.mapView.showsUserLocation = false
+//                        
+//                    }
                 }
             }
         }
@@ -447,7 +458,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                 
                 println("the last tag was \(user.lastTag)")
                 
-                self.tableView.closeWindow(self.tableView)
+                //self.tableView.closeWindow(self.tableView)
                 
                 self.setUpVotes()
                 
@@ -456,7 +467,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
             }else {
                 
                 var alert: UIAlertView = UIAlertView(title: "Network Error", message: "You seem to have a bad connection.", delegate: self, cancelButtonTitle: "Close")
-                self.tableView.closeWindow(self.tableView)
+                //self.tableView.closeWindow(self.tableView)
                 alert.dismissWithClickedButtonIndex(0, animated: true)
                 alert.show()
                 
@@ -766,12 +777,70 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
                         
                     }
                     self.accuracy = self.lastLocation.horizontalAccuracy
+                    println("Horizontal Accuracy\(self.accuracy)")
                     self.address = "\(subThoroughfare) \(p.thoroughfare)^.#/\(p.subLocality)^.#/\(p.subAdministrativeArea)^.#/\(p.postalCode)^.#/\(p.country)"
                     var methodFinished: NSDate = NSDate()
                     var executionTime: NSTimeInterval = methodFinished.timeIntervalSinceDate(methodStart)
                     println("the execution time was \(executionTime)")
                     println(self.address)
-                    self.getSelectedTags()
+                    
+                    let users = User.allObjects()
+                    let user = users[UInt(0)] as User
+                    
+                    if user.username == ""{
+                        
+                        var createView: CreateUsernameView! = CreateUsernameView(frame: CGRectMake(50, -170, self.view.frame.size.width-100, 170))
+                        self.view.addSubview(createView)
+                        createView.openWindow(self)
+                        
+                    } else {
+                        
+                        self.tableView = TagSelectorView(frame: CGRectMake(0, 72, self.view.frame.width, self.view.frame.height - 72), mapClass: self)
+                        self.view.addSubview(self.tableView)
+                        self.mapView.showsUserLocation = false
+                        
+                    }
+                }
+                
+                
+            }
+            
+        })
+        
+        
+    }
+    
+    func reverseGeocodeForTable(){
+        
+        //var methodStart: NSDate = NSDate()
+        
+        CLGeocoder().reverseGeocodeLocation(userLocation, completionHandler: { (placemarks, error) -> Void in
+            
+            if (error != nil) {
+                
+                println(error)
+                
+            } else {
+                
+                if let p = CLPlacemark(placemark: placemarks?[0] as CLPlacemark) {
+                    
+                    var subThoroughfare:String = ""
+                    
+                    if (p.subThoroughfare != nil) {
+                        
+                        subThoroughfare = p.subThoroughfare
+                        
+                    }
+                    self.accuracy = self.lastLocation.horizontalAccuracy
+                    println("Horizontal Accuracy\(self.accuracy)")
+                    self.address = "\(subThoroughfare) \(p.thoroughfare)^.#/\(p.subLocality)^.#/\(p.subAdministrativeArea)^.#/\(p.postalCode)^.#/\(p.country)"
+                    //var methodFinished: NSDate = NSDate()
+                    //var executionTime: NSTimeInterval = methodFinished.timeIntervalSinceDate(methodStart)
+                    //println("the execution time was \(executionTime)")
+                    //println(self.address)
+                    //self.getSelectedTags()
+                    
+                    //call to get new tableview?
                 }
                 
                 
@@ -787,6 +856,7 @@ class MapViewController: ExampleViewController, MKMapViewDelegate, CLLocationMan
         if (view.reuseIdentifier == "me"){
             reverseGeocode()
 //            self.getSelectedTags()
+            
             
         }
         

@@ -88,7 +88,7 @@ class TagButtonTableViewCell: UITableViewCell {
                 mapClass.tableView.hidden = true
                 var createView: CreateUsernameView! = CreateUsernameView(frame: CGRectMake(50, -170, mapClass.view.frame.size.width-100, 170))
                 mapClass.view.addSubview(createView)
-                createView.openWindow(mapClass, tag: backgroundButton.titleLabel?.text!)
+                //createView.openWindow(mapClass)
                 
             }
       }
@@ -105,7 +105,7 @@ class TagButtonTableViewCell: UITableViewCell {
         user.lastTag = backgroundButton.titleLabel?.text as String!
         realm.commitWriteTransaction()
         mapClass.tableView.userInteractionEnabled = false
-        mapClass.tableView.closeWindow(mapClass.tableView)
+        //mapClass.tableView.closeWindow(mapClass.tableView)
         
         
     }

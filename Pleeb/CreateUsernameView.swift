@@ -15,6 +15,7 @@ class CreateUsernameView: UIView,  UITextFieldDelegate {
     var submittedTag: String!
     var mapClass: MapViewController!
     var usernameLabel: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         createView()
@@ -97,7 +98,7 @@ class CreateUsernameView: UIView,  UITextFieldDelegate {
         
     }
     
-    func openWindow(renderView: MapViewController, tag: String!){
+    func openWindow(renderView: MapViewController){
         
         UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
         
@@ -106,8 +107,8 @@ class CreateUsernameView: UIView,  UITextFieldDelegate {
             }, completion: ({ success in
                 
                 println("Window did appear")
-                self.usernameTextField.becomeFirstResponder()
-                self.submittedTag = tag
+                //self.usernameTextField.becomeFirstResponder()
+                //self.submittedTag = tag
                 self.mapClass = renderView
 
             }))
@@ -171,15 +172,17 @@ class CreateUsernameView: UIView,  UITextFieldDelegate {
                 realm.beginWriteTransaction()
                 user.username = self.usernameTextField.text
                 realm.commitWriteTransaction()
-                
-                self.mapClass.post(self.submittedTag)
-                
+
                 println("The user is: \(user.username)")
                 println("The token is: \(user.token)")
                 println("The phone is: \(user.phone)")
                 println("The lastTag is: \(user.lastTag)")
                 println("it works")
                 
+                self.mapClass.tableView = TagSelectorView(frame: CGRectMake(0, 72, self.mapClass.view.frame.width, self.mapClass.view.frame.height - 72), mapClass: self.mapClass)
+                self.mapClass.view.addSubview(self.mapClass.tableView)
+                
+                self.removeFromSuperview()
                 //close window
                 //show bottom screen button
                 
